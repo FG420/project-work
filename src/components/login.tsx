@@ -21,12 +21,12 @@ import passvalidation from "@/app/pass-validation";
 
 const formSchema = z.object({
     email: z.string()
-    .min(5, { message: 'Must have at least 1 character' })
+    .min(5, { message: 'Must have at least 5 character' })
     .email({
       message: 'Must be a valid email',
     }),
     password: z.string()
-    .min(8, { message: 'Must have at least 1 character' })
+    .min(8, { message: 'Must have at least 8 character' })
     .regex(passvalidation(), {
       message: 'Your password is not valid',
     }),
