@@ -16,6 +16,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 // import axios from "axios";
 import { useRouter } from "next/navigation";
 import passvalidation from "@/app/pass-validation";
+import Link from "next/link";
 
 
 
@@ -74,7 +75,7 @@ export default function LoginPage() {
                         render={({ field }) => (
                             <FormItem className="p-8">
                                 <FormControl>
-                                    <Input placeholder="Username" {...field} />
+                                    <Input placeholder="Email" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -92,9 +93,10 @@ export default function LoginPage() {
                             </FormItem>
                         )}
                     />
-                    <Button type="submit">Login</Button>
+                    <Button type="submit" className="">Login</Button>
                 </form>
             </Form>
+            <Link href={'/'}>Forgot Password</Link>
         </>
     );
 }

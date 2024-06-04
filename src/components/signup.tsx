@@ -28,14 +28,14 @@ import { useFormState } from "react-dom";
 // import axios from "axios";
 
 const formSchema = z.object({
-    username: z.string().min(8, {
-        message: "Username must be at least 8 characters.",
-    }),
     email: z.string().min(10, {
         message: "Email must be at least 10 characters.",
     }),
     password: z.string().min(8, {
         message: "Password must be at least 8 characters.",
+    }),
+    confirmPassword: z.string().min(8, {
+        message: "Username must be at least 8 characters.",
     }),
 });
 
@@ -43,9 +43,9 @@ export default function SignUpPage() {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            username: "",
             email: "",
             password: "",
+            confirmPassword: "",
         },
     });
 
@@ -67,25 +67,11 @@ export default function SignUpPage() {
                 >
                     <FormField
                         control={form.control}
-                        name="username"
+                        name="email"
                         render={({ field }) => (
                             <FormItem className="p-8">
                                 {/* Username */}
                                 {/* <FormLabel>Username</FormLabel> */}
-                                <FormControl>
-                                    <Input placeholder="Username" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="email"
-                        render={({ field }) => (
-                            <FormItem className="p-8">
-                                {/* Email */}
-                                {/* <FormLabel>Email</FormLabel> */}
                                 <FormControl>
                                     <Input placeholder="Email" {...field} />
                                 </FormControl>
@@ -102,6 +88,20 @@ export default function SignUpPage() {
                                 {/* <FormLabel>Password</FormLabel> */}
                                 <FormControl>
                                     <Input type="password" placeholder="Password" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="confirmPassword"
+                        render={({ field }) => (
+                            <FormItem className="p-8">
+                                {/* Email */}
+                                {/* <FormLabel>Email</FormLabel> */}
+                                <FormControl>
+                                    <Input placeholder="Confirm Pssword" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
