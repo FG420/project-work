@@ -22,7 +22,7 @@ import Link from "next/link";
 
 const formSchema = z.object({
     email: z.string()
-    .min(5, { message: 'Must have at least 5 character' })
+    .min(6, { message: 'Must have at least 5 character' })
     .email({
       message: 'Must be a valid email',
     }),
@@ -67,6 +67,7 @@ export default function LoginPage() {
 
     return (
         <>
+
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col items-center justify-center p-5">
                     <FormField
@@ -93,10 +94,10 @@ export default function LoginPage() {
                             </FormItem>
                         )}
                     />
-                    <Button type="submit" className="">Login</Button>
+                    <Button type="submit" className="hover:bg-red-400">Login</Button>
                 </form>
             </Form>
-            <Link href={'/'}>Forgot Password</Link>
+           
         </>
     );
 }

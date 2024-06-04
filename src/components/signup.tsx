@@ -25,18 +25,25 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useFormState } from "react-dom";
+import passvalidation from "@/app/pass-validation";
 // import axios from "axios";
 
 const formSchema = z.object({
-    email: z.string().min(10, {
-        message: "Email must be at least 10 characters.",
+    email: z.string()
+    .min(6, { message: 'Must have at least 5 character' })
+    .email({
+      message: 'Must be a valid email',
     }),
-    password: z.string().min(8, {
-        message: "Password must be at least 8 characters.",
+    password: z.string()
+    .min(8, { message: 'Must have at least 8 character' })
+    .regex(passvalidation(), {
+      message: 'Your password is not valid',
     }),
-    confirmPassword: z.string().min(8, {
-        message: "Username must be at least 8 characters.",
-    }),
+    confirmPassword: z.string()
+    .min(8, { message: 'Must have at least 8 characters' })
+    }).refine(data => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"]
 });
 
 export default function SignUpPage() {
@@ -70,8 +77,6 @@ export default function SignUpPage() {
                         name="email"
                         render={({ field }) => (
                             <FormItem className="p-8">
-                                {/* Username */}
-                                {/* <FormLabel>Username</FormLabel> */}
                                 <FormControl>
                                     <Input placeholder="Email" {...field} />
                                 </FormControl>
@@ -84,8 +89,6 @@ export default function SignUpPage() {
                         name="password"
                         render={({ field }) => (
                             <FormItem className="p-8">
-                                {/* Password */}
-                                {/* <FormLabel>Password</FormLabel> */}
                                 <FormControl>
                                     <Input type="password" placeholder="Password" {...field} />
                                 </FormControl>
@@ -98,16 +101,14 @@ export default function SignUpPage() {
                         name="confirmPassword"
                         render={({ field }) => (
                             <FormItem className="p-8">
-                                {/* Email */}
-                                {/* <FormLabel>Email</FormLabel> */}
                                 <FormControl>
-                                    <Input placeholder="Confirm Pssword" {...field} />
+                                    <Input placeholder="Confirm Password" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
                         )}
                     />
-                    <Button type="submit">Sign up</Button>
+                    <Button type="submit" className="hover:bg-red-400">Sign Up</Button>
                 </form>
             </Form>
         </>
