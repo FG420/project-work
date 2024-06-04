@@ -15,10 +15,9 @@ import { z } from 'zod';
 import { zodResolver } from "@hookform/resolvers/zod"
 // import axios from "axios";
 import { useRouter } from "next/navigation";
+import passvalidation from "@/app/pass-validation";
 
-const passwordValidation = new RegExp(
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
-  );
+
 
 const formSchema = z.object({
     email: z.string()
@@ -28,7 +27,7 @@ const formSchema = z.object({
     }),
     password: z.string()
     .min(8, { message: 'Must have at least 1 character' })
-    .regex(passwordValidation, {
+    .regex(passvalidation(), {
       message: 'Your password is not valid',
     }),
 })
