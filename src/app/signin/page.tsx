@@ -17,6 +17,14 @@ export default function SignInPage() {
           <Card className="">
             <LoginPage></LoginPage>
           </Card>
+          <div className="flex justify-center">
+            <Link
+              href={"/"}
+              className=" transition-all font-semibold hover:text-red-500 hover:transition-all p-4"
+            >
+              Forgot Password
+            </Link>
+          </div>
         </TabsContent>
         <TabsContent value="signup">
           <Card>
@@ -24,14 +32,6 @@ export default function SignInPage() {
           </Card>
         </TabsContent>
       </Tabs>
-      <div className="flex justify-center">
-        <Link
-          href={"/"}
-          className=" transition-all font-semibold hover:text-red-500 hover:transition-all p-4"
-        >
-          Forgot Password
-        </Link>
-      </div>
     </main>
   );
 }
