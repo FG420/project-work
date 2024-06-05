@@ -7,8 +7,8 @@ import React from 'react'
 function ForgotPassPage() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Tabs defaultValue="login" className="w-[400px]">
-        <TabsContent value="signup">
+      <Tabs defaultValue="forgotpass" className="w-[400px]">
+        <TabsContent value="forgotpass">
           <Card>
             <ForgotPass/>
           </Card>

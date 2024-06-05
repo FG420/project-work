@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/form";import { Button } from './ui/button'
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
@@ -23,6 +24,7 @@ const formSchema = z.object({
 });
 
 function ForgotPass() {
+    const router = useRouter()
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
