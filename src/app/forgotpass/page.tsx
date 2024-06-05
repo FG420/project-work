@@ -1,4 +1,3 @@
-"use client"
 import ForgotPass from '@/components/forgotpass'
 import { Card } from '@/components/ui/card'
 import { Tabs, TabsContent } from '@/components/ui/tabs'
