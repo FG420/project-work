@@ -15,14 +15,21 @@ import { z } from 'zod';
 import { zodResolver } from "@hookform/resolvers/zod"
 // import axios from "axios";
 import { useRouter } from "next/navigation";
+import passvalidation from "@/app/pass-validation";
+import Link from "next/link";
+
 
 
 const formSchema = z.object({
-    email: z.string().min(8, {
-        message: "Username must be at least 8 characters.",
+    email: z.string()
+    .min(6, { message: 'Must have at least 5 character' })
+    .email({
+      message: 'Must be a valid email',
     }),
-    password: z.string().min(8, {
-        message: "Password must be at least 8 characters.",
+    password: z.string()
+    .min(8, { message: 'Must have at least 8 character' })
+    .regex(passvalidation(), {
+      message: 'Your password is not valid',
     }),
 })
 
@@ -60,6 +67,7 @@ export default function LoginPage() {
 
     return (
         <>
+
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col items-center justify-center p-5">
                     <FormField
@@ -68,7 +76,7 @@ export default function LoginPage() {
                         render={({ field }) => (
                             <FormItem className="p-8">
                                 <FormControl>
-                                    <Input placeholder="Username" {...field} />
+                                    <Input placeholder="Email" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -86,9 +94,10 @@ export default function LoginPage() {
                             </FormItem>
                         )}
                     />
-                    <Button type="submit">Login</Button>
+                    <Button type="submit" className="hover:bg-red-400">Login</Button>
                 </form>
             </Form>
+           
         </>
     );
 }
