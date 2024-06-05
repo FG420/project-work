@@ -19,7 +19,7 @@ export default function SignInPage() {
           </Card>
           <div className="flex justify-center">
             <Link
-              href={"/"}
+              href={"/forgotpass"}
               className=" transition-all font-semibold hover:text-red-500 hover:transition-all p-4"
             >
               Forgot Password
