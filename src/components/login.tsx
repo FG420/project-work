@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
@@ -34,21 +33,11 @@ const formSchema = z.object({
 
 export default function LoginPage() {
   const router = useRouter();
-//   const [showMessage, setShowMessage] = useState(false);
-//   const refTimer = useRef(null);
+  const [showMessage, setShowMessage] = useState(false);
 
-//   const showBox = () => {
-//     if (refTimer.current !== null) return;
-//     refTimer.current = setTimeout(() => {
-//       setShowMessage(true);
-//     }, 5000);
-//   };
-
-//   const stopTimeout = () => {
-//     if (refTimer.current === null) return;
-//     clearTimeout(refTimer.current);
-//     refTimer.current = null;
-//   };
+  const timer = setTimeout(() => {
+    setShowMessage(true);
+  }, 5000);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -59,7 +48,7 @@ export default function LoginPage() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-        // Your submission logic here
+    // Your submission logic here
   }
 
   return (
