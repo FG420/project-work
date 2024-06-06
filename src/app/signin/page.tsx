@@ -3,14 +3,6 @@
 import LoginPage from "@/components/login";
 import SignUpPage from "@/components/signup";
 import { Card } from "@/components/ui/card";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
@@ -23,11 +15,10 @@ export default function SignInPage() {
 
   // const [showMessage, setShowMessage] = useState(false);
 
-  // const timer = setTimeout(() => {
-  //   setShowMessage(true)
-  // }, 5000);
+  const timer = setTimeout(() => {
+    setShowMessage(true);
+  }, 5000);
 
-  
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <Tabs defaultValue="login" className="w-[400px]">
