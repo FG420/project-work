@@ -1,5 +1,5 @@
-import { Orders, columns } from "../../components/table/columns"
-import { DataOrderTable } from "../../components/table/order-data-table"
+import { Orders, columns } from "../../../components/table/columns"
+import { DataOrderTable } from "../../../components/table/order-data-table"
 
 async function getData(): Promise<Orders[]> {
   // Use axios to call for the data
