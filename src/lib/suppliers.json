@@ -1,0 +1,22 @@
+[
+  {
+    "FornitoreID": 1,
+    "Fornitore": "Mario Rossi"
+  },
+  {
+    "FornitoreID": 2,
+    "Fornitore": "Luigi Verdi"
+  },
+  {
+    "FornitoreID": 3,
+    "Fornitore": "Sonia Bianchi"
+  },
+  {
+    "FornitoreID": 4,
+    "Fornitore": "Giuseppe Neri"
+  },
+  {
+    "FornitoreID": 5,
+    "Fornitore": "Marcello Gialli"
+  }
+]
