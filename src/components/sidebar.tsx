@@ -21,6 +21,9 @@ export default function Sidebar() {
         <Button className="sidebar-btn" variant={"outline"}>
           Sales Analysis
         </Button>
+        <Button className="sidebar-btn" variant={"outline"}>
+          Purchases Analysis
+        </Button>
 
         <div className="lower-sidebar">
           <div className="toggle">
