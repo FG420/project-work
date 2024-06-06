@@ -25,7 +25,7 @@ const formSchema = z
     path: ["confirmPassword"]
   });
 
-export default function SignUpPage() {
+export default function SignUpComponent() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -92,7 +92,7 @@ export default function SignUpPage() {
             render={({ field }) => (
               <FormItem className="p-8">
                 <FormControl>
-                  <Input placeholder="Confirm Password" {...field} />
+                  <Input type="password" placeholder="Confirm Password" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
