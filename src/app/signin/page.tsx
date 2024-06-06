@@ -8,17 +8,17 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import DialogPage from "@/components/dialog-trigger";
+import { Button } from "@/components/ui/button";
 
 export default function SignInPage() {
   const router = useRouter();
 
-  const [showMessage, setShowMessage] = useState(false);
+  // const [showMessage, setShowMessage] = useState(false);
 
-  const timer = setTimeout(() => {
-    setShowMessage(true);
-  }, 5000);
-
+  // const timer = setTimeout(() => {
+  //   setShowMessage(true)
+  // }, 5000);
+  
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <Tabs defaultValue="login" className="w-[400px]">
@@ -39,11 +39,22 @@ export default function SignInPage() {
             </Link>
           </div>
 
-          {showMessage === true ? (
-            <>
-              <DialogPage></DialogPage>
-            </>
-          ) : null}
+          {/* {showMessage === true ? (
+            <div className="">
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button>Ciao</Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogDescription>
+                    This action cannot be undone. This will permanently delete
+                    your account and remove your data from our servers.
+                  </DialogDescription>
+                </DialogContent>
+              </Dialog>
+            </div>
+          ) : null} */}
+
         </TabsContent>
         <TabsContent value="signup">
           <Card>
