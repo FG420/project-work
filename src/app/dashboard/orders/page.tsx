@@ -3,7 +3,7 @@ import { DataOrderTable } from "../../../components/table/order-data-table"
 
 async function getData(): Promise<Orders[]> {
   // Use axios to call for the data
-  return [
+  return [ 
     {
       id: "m5gr84i9",
       amount: 316,
@@ -96,7 +96,6 @@ export default async function OrdersPage() {
 
   return (
     <>
-      {/* <h1 className="text-3xl">Orders Page</h1> */}
       <div className="container mx-auto py-10" >
         <DataOrderTable columns={columns} data={data} />
       </div>

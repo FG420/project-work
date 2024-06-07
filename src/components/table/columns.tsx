@@ -1,7 +1,6 @@
 "use client"
-
 import { ColumnDef } from "@tanstack/react-table"
-import { MoreHorizontal } from "lucide-react"
+import { MoreHorizontal, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -11,6 +10,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible"
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -51,10 +55,18 @@ export const columns: ColumnDef<Orders>[] = [
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
+            <Collapsible>
+              <CollapsibleTrigger>
+                <Button variant="ghost" className="h-8 w-8 p-0">
+                  <ChevronDown className="h-4 w-4" />
+                </Button>
+              </CollapsibleTrigger>
+              <CollapsibleContent>
+                Yes. Free to use for personal and commercial projects. No attribution
+                required.
+              </CollapsibleContent>
+            </Collapsible>
+              
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
@@ -63,9 +75,7 @@ export const columns: ColumnDef<Orders>[] = [
             >
               Copy payment ID
             </DropdownMenuItem>
-            <DropdownMenuSeparator />
             <DropdownMenuItem>View order items</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )
