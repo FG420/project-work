@@ -10,7 +10,12 @@ import { DialogComponent } from "@/components/dialog-trigger";
 
 async function getData (): Promise<Purchase[]> {
     // Fetch data from your API here.
-    return purchases
+    return purchases.map( ( purchase ) => ( {
+        id: purchase.id,
+        supplierId: purchase.supplierId,
+        recipeDate: new Date( purchase.recipeDate ).toLocaleDateString(),
+        recipe: purchase.recipe
+    } ) );
 }
 
 export default async function PurchasePage () {
@@ -18,15 +23,10 @@ export default async function PurchasePage () {
     return (
         <main>
             <div className="flex justify-end items-center pr-3">
-                <div className="p-2">
+                <div className="pb-2">
                     <DialogComponent
                         buttonName={ "New Purchase" }
                         title={ "Create a New Purchase" } />
-                </div>
-                <div className="">
-                    <DialogComponent
-                        buttonName={ "Delete Purchase" }
-                        title={ "Delete a Purchase" } />
                 </div>
             </div>
             <div className="p-2 flex items-center justify-end">

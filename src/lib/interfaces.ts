@@ -27,7 +27,7 @@ export interface Supplier {
 export interface Purchase {
     id: number;
     supplierId: number;
-    recipeDate: Date;
+    recipeDate: number | string;
     recipe: string;
 
     // PurchaseID: number;

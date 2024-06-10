@@ -33,11 +33,16 @@ type Prop = {
 }
 
 const formSchema = z.object( {
-    id: z.number(),
-    supplierId: z.number(),
-    recipeDate: z.date(),
+    id: z.coerce.number().int().positive(),
+    supplierId: z.coerce.number().int().positive(),
+    recipeDate: z.string(),
     recipe: z.string().min( 5 )
 } )
+const deleteFormSchema = z.object( {
+    id: z.coerce.number().int().positive(),
+} )
+
+
 
 
 export function DialogComponent ( { buttonName, title }: Prop ) {
@@ -47,15 +52,35 @@ export function DialogComponent ( { buttonName, title }: Prop ) {
         defaultValues: {
             id: 1,
             supplierId: 1,
-            recipeDate: new Date,
+            recipeDate: '',
             recipe: '',
         },
     } )
 
-    function onSubmit ( values: z.infer<typeof formSchema> ) {
+    const deleteForm = useForm<z.infer<typeof deleteFormSchema>>( {
+        resolver: zodResolver( deleteFormSchema ),
+        defaultValues: {
+            id: 1,
+        },
+    } );
+
+    function onSubmit ( values: z.infer<typeof formSchema | typeof deleteFormSchema> ) {
         // Do something with the form values.
         // ✅ This will be type-safe and validated.
-        console.log( values )
+        try {
+            if ( buttonName === "Delete Purchase" ) {
+                // Delete the purchase
+                deleteForm.trigger();
+                console.log( 'purchase deleted' )
+            } else if ( buttonName === "New Purchase" ) {
+                // Create a new purchase
+                form.trigger();
+                console.log( 'purchase added' )
+            }
+            console.log( values )
+        } catch ( error ) {
+            console.log( error );
+        }
     }
 
     return (
@@ -68,52 +93,9 @@ export function DialogComponent ( { buttonName, title }: Prop ) {
                     <DialogHeader>
                         <DialogTitle className="text-center">{ title }</DialogTitle>
                     </DialogHeader>
-                    <Form { ...form }>
-                        <form onSubmit={ form.handleSubmit( onSubmit ) } className="space-y-8">
-                            { buttonName === 'New Purchase' ? (
-                                <><FormField
-                                    control={ form.control }
-                                    name="id"
-                                    render={ ( { field } ) => (
-                                        <FormItem>
-                                            <FormLabel className="p-2">ID</FormLabel>
-                                            <FormControl>
-                                                <Input placeholder="1" type="number" { ...field } />
-                                            </FormControl>
-                                        </FormItem>
-                                    ) } /><FormField
-                                        control={ form.control }
-                                        name="supplierId"
-                                        render={ ( { field } ) => (
-                                            <FormItem>
-                                                <FormLabel className="p-2">Supplier ID</FormLabel>
-                                                <FormControl>
-                                                    <Input placeholder="1" type="number" { ...field } />
-                                                </FormControl>
-                                            </FormItem>
-                                        ) } /><FormField
-                                        control={ form.control }
-                                        name="recipeDate"
-                                        render={ ( { field } ) => (
-                                            <FormItem>
-                                                <FormLabel className="p-2">Purchase Date</FormLabel>
-                                                <FormControl>
-                                                    <Input type="date" { ...field } />
-                                                </FormControl>
-                                            </FormItem>
-                                        ) } /><FormField
-                                        control={ form.control }
-                                        name="recipe"
-                                        render={ ( { field } ) => (
-                                            <FormItem>
-                                                <FormLabel className="p-2">Recipe String</FormLabel>
-                                                <FormControl>
-                                                    <Input placeholder="jrnjgimreg43545" type="text" { ...field } />
-                                                </FormControl>
-                                                <FormMessage />
-                                            </FormItem>
-                                        ) } /></>
-                            ) : (
+                    { buttonName === 'New Purchase' ? (
+                        <Form { ...form }>
+                            <form onSubmit={ form.handleSubmit( onSubmit ) } className="space-y-8">
                                 <FormField
                                     control={ form.control }
                                     name="id"
@@ -121,17 +103,71 @@ export function DialogComponent ( { buttonName, title }: Prop ) {
                                         <FormItem>
                                             <FormLabel className="p-2">ID</FormLabel>
                                             <FormControl>
+                                                <Input type="number" min={ 1 }{ ...field } />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    ) } /><FormField
+                                    control={ form.control }
+                                    name="supplierId"
+                                    render={ ( { field } ) => (
+                                        <FormItem>
+                                            <FormLabel className="p-2">Supplier ID</FormLabel>
+                                            <FormControl>
+                                                <Input type="number" min={ 1 } { ...field } />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    ) } /><FormField
+                                    control={ form.control }
+                                    name="recipeDate"
+                                    render={ ( { field } ) => (
+                                        <FormItem>
+                                            <FormLabel className="p-2">Purchase Date</FormLabel>
+                                            <FormControl>
+                                                <Input type="date" { ...field } />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    ) } /><FormField
+                                    control={ form.control }
+                                    name="recipe"
+                                    render={ ( { field } ) => (
+                                        <FormItem>
+                                            <FormLabel className="p-2">Recipe String</FormLabel>
+                                            <FormControl>
+                                                <Input placeholder="jrnjgimreg43545" type="text" { ...field } />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    ) } />
+                                <div className="flex justify-center ">
+                                    <Button type="submit" >{ buttonName }</Button>
+                                </div>
+                            </form>
+                        </Form>
+                    ) : (
+                        <Form { ...deleteForm }>
+                            <form onSubmit={ deleteForm.handleSubmit( onSubmit ) } className="space-y-8">
+                                <FormField
+                                    control={ deleteForm.control }
+                                    name="id"
+                                    render={ ( { field } ) => (
+                                        <FormItem>
+                                            <FormLabel className="p-2">ID</FormLabel>
+                                            <FormControl>
                                                 <Input placeholder="1" type="number" { ...field } />
                                             </FormControl>
+                                            <FormMessage />
                                         </FormItem>
                                     ) }
                                 />
-                            ) }
-                            <div className="flex justify-center ">
-                                <Button type="submit" >{ buttonName }</Button>
-                            </div>
-                        </form>
-                    </Form>
+                                <div className="flex justify-center ">
+                                    <Button type="submit" >{ buttonName }</Button>
+                                </div>
+                            </form>
+                        </Form>
+                    ) }
 
                 </DialogContent>
             </Dialog>
