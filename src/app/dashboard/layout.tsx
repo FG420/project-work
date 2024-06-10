@@ -1,13 +1,21 @@
-import Sidebar from "@/components/sidebar";
 import React from "react";
+import { Header } from "@/components/header";
+import { HeaderMobile } from "@/components/header-mobile";
+import { SideNav } from "@/components/side-nav";
+import PageWrapper from "@/components/page-wrapper";
+import MarginWidthWrapper from "@/components/margin-width-wrapper";
 
 const HomePageLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
-    <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
-      <div className="w-full flex-none md:w-64" style={{ border: "1px solid red" }}>
-        <Sidebar />
-      </div>
-      <div className="flex-grow p-6 md:overflow-y-auto md:p-12">{children}</div>
+    <div className="flex">
+      <SideNav />
+      <main className="flex-1">
+        <MarginWidthWrapper>
+          <Header />
+          <HeaderMobile />
+          <PageWrapper>{children}</PageWrapper>
+        </MarginWidthWrapper>
+      </main>
     </div>
   );
 };
