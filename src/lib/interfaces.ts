@@ -1,9 +1,5 @@
-//! Da vedere se si può cambiare il nome in qualcosa di più significativo alcune proprietà e/o anche il pascal case
+// TODO: Da ridefinire le interfacce quando le API saranno pronte
 
-// TODO 1. Decidere Struttura Pagina Home
-
-//! Avvisare Gruppo Backend
-// TODO 2. Per ogni tentativo di accesso memorizzare in una Tabella del database l’indirizzo IP, data/ora e se l'accesso è valido oppure no
 export interface Item {
   ASIN: string;
   Title: string;
