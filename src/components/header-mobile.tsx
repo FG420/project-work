@@ -9,12 +9,14 @@ import { SidebarItems } from "@/lib/constants";
 import { SidebarItem, MenuItemWithSubMenuProps } from "@/lib/types";
 import { Icon } from "@iconify/react";
 import { motion, useCycle } from "framer-motion";
+import { useTheme } from "next-themes";
 
 export const HeaderMobile = () => {
   const pathname = usePathname();
   const containerRef = useRef(null);
   const height = useDimensions(containerRef);
   const [isOpen, toggleOpen] = useCycle(false, true);
+  const { resolvedTheme } = useTheme();
 
   return (
     <motion.nav
@@ -24,7 +26,10 @@ export const HeaderMobile = () => {
       className={`fixed inset-0 z-50 w-full md:hidden ${isOpen ? "" : "pointer-events-none"}`}
       ref={containerRef}
     >
-      <motion.div className="absolute inset-0 right-0 w-full bg-white" variants={sidebar} />
+      <motion.div
+        className={`absolute inset-0 right-0 w-full ${resolvedTheme === "dark" ? "bg-black" : "bg-white"} `}
+        variants={sidebar}
+      />
       <motion.ul className="absolute grid w-full gap-3 px-10 py-16" variants={variants}>
         {SidebarItems.map((item, idx) => {
           const isLastItem = idx === SidebarItems.length - 1;
