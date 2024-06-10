@@ -1,18 +1,17 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { Supplier } from "@/lib/interfaces"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { Button } from "@/components/ui/button"
-import { MoreHorizontal } from "lucide-react"
-import { DialogComponent } from "@/components/dialog-trigger"
+import { Purchase } from "@/lib/interfaces"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
 import { z } from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useEffect } from "react"
+import { MoreHorizontal } from "lucide-react"
+import { Button } from "@/components/ui/button"
+
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 
@@ -22,22 +21,28 @@ const formSchema = z.object( {
 } )
 
 
-
-
-export const columns: ColumnDef<Supplier>[] = [
+export const columns: ColumnDef<Purchase>[] = [
     {
         accessorKey: "id",
         header: "ID",
     },
     {
-        accessorKey: "name",
-        header: "Name",
+        accessorKey: "supplierId",
+        header: "Supplier ID",
+    },
+    {
+        accessorKey: "recipeDate",
+        header: "Date of Purchase",
+    },
+    {
+        accessorKey: "recipe",
+        header: "Recipe",
     },
     {
         id: "actions",
         enableHiding: false,
         cell: ( { row } ) => {
-            const supplier = row.original
+            const purchase = row.original
 
             const form = useForm<z.infer<typeof formSchema>>( {
                 resolver: zodResolver( formSchema ),
@@ -57,9 +62,9 @@ export const columns: ColumnDef<Supplier>[] = [
             }
 
             // Delete function working using the row supplier.id for verificatiion! 
-            const deleteSupplier = () => {
-                // API call for supplier deletion
-                console.log( supplier.id )
+            const deletePurchase = () => {
+                // API call for purchase deletion
+                console.log( purchase.id )
             }
 
 
@@ -73,13 +78,13 @@ export const columns: ColumnDef<Supplier>[] = [
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <Dialog>
+                        {/* <Dialog>
                             <DialogTrigger asChild>
-                                <DropdownMenuItem>Edit Supplier</DropdownMenuItem>
+                                <DropdownMenuItem>Edit Purchase</DropdownMenuItem>
                             </DialogTrigger>
                             <DialogContent className="sm:max-w-[425px]">
                                 <DialogHeader>
-                                    <DialogTitle className="text-center">Edit Supplier</DialogTitle>
+                                    <DialogTitle className="text-center">Edit Purchase</DialogTitle>
                                 </DialogHeader>
                                 <Form { ...form }>
                                     <form onSubmit={ form.handleSubmit( onSubmit ) } className="space-y-8">
@@ -102,12 +107,11 @@ export const columns: ColumnDef<Supplier>[] = [
                                 </Form>
 
                             </DialogContent>
-                        </Dialog>
-                        <DropdownMenuItem onClick={ deleteSupplier }>Delete supplier</DropdownMenuItem>
+                        </Dialog> */}
+                        <DropdownMenuItem onClick={ deletePurchase }>Delete Purchase</DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             )
         },
-    },
-
+    }
 ]
