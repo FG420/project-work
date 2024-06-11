@@ -4,7 +4,6 @@ import {
     ColumnDef,
     flexRender,
     getCoreRowModel,
-    getPaginationRowModel,
     useReactTable,
 } from "@tanstack/react-table"
 
@@ -31,12 +30,12 @@ export function DataTable<TData, TValue> ( {
         data,
         columns,
         getCoreRowModel: getCoreRowModel(),
-        getPaginationRowModel: getPaginationRowModel(),
     } )
 
     return (
         <main>
-            <div className="rounded-md border w-auto text-center">
+
+            <div className="rounded-md border text-center">
                 <Table>
                     <TableHeader >
                         { table.getHeaderGroups().map( ( headerGroup ) => (
@@ -66,7 +65,6 @@ export function DataTable<TData, TValue> ( {
                                     { row.getVisibleCells().map( ( cell ) => (
                                         <TableCell key={ cell.id }>
                                             { flexRender( cell.column.columnDef.cell, cell.getContext() ) }
-
                                         </TableCell>
                                     ) ) }
                                 </TableRow>
@@ -104,5 +102,3 @@ export function DataTable<TData, TValue> ( {
         </main>
     )
 }
-
-

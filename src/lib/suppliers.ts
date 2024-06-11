@@ -1,10 +1,8 @@
+import { Supplier } from "./interfaces"
 
-export type SupplierT = {
-    id: number
-    name: string
-}
 
-export const suppliers: SupplierT[] = [
+
+export const suppliers: Supplier[] = [
     {
         id: 1,
         name: 'supplier 1'
