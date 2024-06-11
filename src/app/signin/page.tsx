@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import LoginPage from "@/components/login";
 import SignUpPage from "@/components/signup";
@@ -6,9 +6,7 @@ import { Card } from "@/components/ui/card";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
-import React, { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
+
 
 export default function SignInPage() {
   const router = useRouter();
@@ -53,15 +51,14 @@ export default function SignInPage() {
                 </DialogContent>
               </Dialog>
             </div>
-          ) : null} */}
+        </main>
+    )
+};
 
-        </TabsContent>
-        <TabsContent value="signup">
-          <Card>
-            <SignUpPage></SignUpPage>
-          </Card>
-        </TabsContent>
-      </Tabs>
-    </main>
-  );
-}
+
+
+
+
+
+
+
