@@ -3,12 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
-import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import passvalidation from "@/app/pass-validation";
-import ReCAPTCHA from "react-google-recaptcha";
-import { useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useState } from "react";
 // import axios from "axios";
@@ -112,4 +109,3 @@ export default function SignUpPage() {
     </>
   );
 }
-
