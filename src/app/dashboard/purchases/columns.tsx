@@ -4,13 +4,14 @@ import { ColumnDef } from "@tanstack/react-table"
 import { Purchase } from "@/lib/interfaces"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
 import { z } from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { MoreHorizontal } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -43,6 +44,7 @@ export const columns: ColumnDef<Purchase>[] = [
         enableHiding: false,
         cell: ( { row } ) => {
             const purchase = row.original
+
 
             const form = useForm<z.infer<typeof formSchema>>( {
                 resolver: zodResolver( formSchema ),
@@ -78,6 +80,8 @@ export const columns: ColumnDef<Purchase>[] = [
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                        <DropdownMenuSeparator/>
+                        <DropdownMenuItem><Link href={`/dashboard/purchases/${purchase.id}`}>View Items</Link></DropdownMenuItem>
                         {/* <Dialog>
                             <DialogTrigger asChild>
                                 <DropdownMenuItem>Edit Purchase</DropdownMenuItem>
