@@ -5,8 +5,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { PurchasedItem } from "@/lib/interfaces";
+} from '@/components/ui/card';
 
 export const data = [
   {
@@ -47,7 +46,6 @@ export const data = [
 ];
 
 export default function PurchaseItemsPage({ params }: any) {
-
   const getData = data.filter((prodId) => prodId.purchaseId == params.id);
 
   return (

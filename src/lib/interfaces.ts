@@ -5,14 +5,6 @@ export interface Purchase {
   RecipeNumber: string;
 }
 
-export interface PurchasedItem {
-  PurchasedItemID: number;
-  PurchaseID: number;
-  ASIN: number;
-  Quantity: number;
-  Price: number;
-}
-
 // Order
 //! Da definire qualcosa per order scaricato o meno
 export interface Order {

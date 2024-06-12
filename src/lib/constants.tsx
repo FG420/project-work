@@ -1,51 +1,51 @@
-import { Icon } from "@iconify/react";
-import { SidebarItem } from "./types";
+import { Icon } from '@iconify/react';
+import { SidebarItem } from './types';
 
 export const SidebarItems: SidebarItem[] = [
   {
-    title: "Home",
-    path: "/dashboard",
+    title: 'Home',
+    path: '/dashboard',
     icon: <Icon icon="bi:house-fill" />,
-    submenu: false
+    submenu: false,
   },
   {
-    title: "Items",
-    path: "/dashboard/items",
+    title: 'Items',
+    path: '/dashboard/items',
     icon: <Icon icon="bi:box" />,
-    submenu: false
+    submenu: false,
   },
   {
-    title: "Suppliers",
-    path: "/dashboard/suppliers",
+    title: 'Suppliers',
+    path: '/dashboard/suppliers',
     icon: <Icon icon="bi:people-fill" />,
-    submenu: false
+    submenu: false,
   },
   {
-    title: "Purchases",
-    path: "/dashboard/purchases",
+    title: 'Purchases',
+    path: '/dashboard/purchases',
     icon: <Icon icon="bi:cart-fill" />,
-    submenu: false
+    submenu: false,
   },
   {
-    title: "Orders",
-    path: "/dashboard/orders",
+    title: 'Orders',
+    path: '/dashboard/orders',
     icon: <Icon icon="bi:clipboard" />,
-    submenu: false
+    submenu: false,
   },
   {
-    title: "Analysis",
-    path: "analysis",
+    title: 'Analysis',
+    path: 'analysis',
     icon: <Icon icon="bi:bar-chart-fill" />,
     submenu: true,
     subMenuItems: [
       {
-        title: "Sales Analysis",
-        path: "/dashboard/sales-analysis"
+        title: 'Sales Analysis',
+        path: '/dashboard/sales-analysis',
       },
       {
-        title: "Purchases Analysis",
-        path: "/dashboard/purchases-analysis"
-      }
-    ]
-  }
+        title: 'Purchases Analysis',
+        path: '/dashboard/purchases-analysis',
+      },
+    ],
+  },
 ];

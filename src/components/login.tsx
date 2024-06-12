@@ -1,74 +1,69 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useForm } from "react-hook-form";
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { useForm } from 'react-hook-form';
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from "@/components/ui/form";
+} from '@/components/ui/form';
 
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import passvalidation from "@/app/pass-validation";
-import { toast } from "./ui/use-toast";
-import { ToastAction } from "./ui/toast";
-import axios from "axios";
-import { useRouter } from "next/navigation";
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import passvalidation from '@/app/pass-validation';
+import { toast } from './ui/use-toast';
+import { ToastAction } from './ui/toast';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 const formSchema = z.object({
-  email: z
-    .string()
-    .min(6, { message: "Must have at least 5 character" })
-    .email({
-      message: "Must be a valid email",
-    }),
+  email: z.string().min(6, { message: 'Must have at least 5 character' }).email({
+    message: 'Must be a valid email',
+  }),
   password: z
     .string()
-    .min(8, { message: "Must have at least 8 character" })
+    .min(8, { message: 'Must have at least 8 character' })
     .regex(passvalidation(), {
-      message: "Your password is not valid",
+      message: 'Your password is not valid',
     }),
 });
 
 export default function LoginComponent() {
-
-  const router = useRouter()
+  const router = useRouter();
 
   const timer = setTimeout(() => {
     toast({
-      title: "Form Resetting!",
-      description: "30 Seconds passed, from resetting!",
+      title: 'Form Resetting!',
+      description: '30 Seconds passed, from resetting!',
       action: <ToastAction altText="Form resetting toast">Close</ToastAction>,
     });
-    form.reset()
+    form.reset();
   }, 30000);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
   });
-
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       const res = await axios.post(
-        process.env.NEXT_PUBLIC_BACKEND_URL! + "/Authentication/Login",
-        values
+        process.env.NEXT_PUBLIC_BACKEND_URL! + '/Authentication/Login',
+        values,
       );
 
       console.log(res.data);
       if (res.status === 200) {
-        router.push('/dashboard')
+        router.push('/dashboard');
       }
     } catch (error: any) {
       toast({
-        title: "Ops, Something went Wrong!",
-        description: "Please check if the fileds are correctly filled !",
+        title: 'Ops, Something went Wrong!',
+        description: 'Please check if the fileds are correctly filled !',
       });
     }
   }
@@ -105,10 +100,7 @@ export default function LoginComponent() {
             )}
           />
           <div className="pt-4">
-            <Button
-              type="submit"
-              className="transition-all hover:transition-all "
-            >
+            <Button type="submit" className="transition-all hover:transition-all ">
               Sign In
             </Button>
           </div>
