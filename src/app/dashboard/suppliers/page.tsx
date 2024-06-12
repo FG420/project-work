@@ -1,20 +1,18 @@
-
-import { suppliers } from "@/lib/suppliers";
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
-import { Supplier } from "@/lib/interfaces";
 import { Input } from "@/components/ui/input";
 import { DialogComponent } from "@/components/dialog-trigger";
-import { Button } from "@/components/ui/button";
-import { useReactTable } from "@tanstack/react-table";
+import axios from "axios";
+import { Supplier } from "@/lib/types";
 
-async function getData (): Promise<Supplier[]> {
-    // Fetch data from your API here.
+async function getSuppliers (): Promise<Supplier[]> {
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/Supplier`);
+    const suppliers: Supplier[] = res.data;
     return suppliers
 }
 
 export default async function SuppliersPage () {
-    const data = await getData()
+    const data = await getSuppliers()
 
     return (
         <main>
@@ -22,7 +20,7 @@ export default async function SuppliersPage () {
                 <div className="p-2">
                     <DialogComponent
                         buttonName={ "New Supplier" }
-                        title={ "Create a New Supplier" } />
+                        title={ "Create a new supplier" } />
                 </div>
             </div>
             <div className="flex items-center justify-between lg:justify-end">

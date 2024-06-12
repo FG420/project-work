@@ -1,5 +1,4 @@
 import { Icon } from "@iconify/react";
-
 import { SidebarItem } from "./types";
 
 export const SidebarItems: SidebarItem[] = [
