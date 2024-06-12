@@ -3,8 +3,10 @@
 import { Button } from "@/components/ui/button"
 import {
   ColumnDef,
+  ColumnFiltersState,
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
   getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table"
@@ -20,6 +22,8 @@ import {
 import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible"
 import OrderItems from "@/components/table/order-items"
 import { Orders } from "./columns"
+import React from "react"
+import { Input } from "../ui/input"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -27,15 +31,33 @@ interface DataTableProps<TData, TValue> {
 }
 
 export function DataOrderTable<TData, TValue>({ columns, data }: DataTableProps<Orders, any>) {
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
+  
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    onColumnFiltersChange: setColumnFilters,
+    state: {
+      columnFilters,
+    },
   })
+  
 
   return (
     <div>
+      <div className="flex items-center py-4">
+        <Input
+          placeholder="Filter id"
+          value={(table.getColumn("id")?.getFilterValue() as string) ?? ""}
+          onChange={(event) =>
+            table.getColumn("id")?.setFilterValue(event.target.value)
+          }
+          className="max-w-sm"
+        />
+      </div>
       <div className="rounded-md border">
         <Table>
           <TableHeader>
