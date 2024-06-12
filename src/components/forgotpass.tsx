@@ -17,10 +17,11 @@ import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import axios from "axios";
-import { sendEmail } from "@/helpers/mailer";
+// import { sendEmail } from "@/helpers/mailer";
 import { toast } from "./ui/use-toast";
 import { ToastAction } from "./ui/toast";
 import Link from "next/link";
+
 
 const formSchema = z.object({
   email: z
@@ -32,7 +33,6 @@ const formSchema = z.object({
 });
 
 function ForgotPass() {
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -43,27 +43,28 @@ function ForgotPass() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       const res = await axios.patch(
-        process.env.NEXT_PUBLIC_BACKEND_URL! + "Authentication/Forgot-Password",
+        process.env.NEXT_PUBLIC_BACKEND_URL! + "/Authentication/Forgot-Password",
         values
       );
-      const obj = {
-        values,
-        password: res.data
-        }
 
-      const emailSent = await axios.get('api/forgotpass', obj)
-    //   const emailSent = await sendEmail({ email, pass });
-    //   if (res) {
-    //   }
+      const genPass : string = res.data
+
+      const emailObj = {
+        email: values.email,
+        password: genPass,
+      };
+
+      const emailSent = await axios.post("/api/forgotpass", emailObj);
       toast({
         title: "Generic Password Generated!",
         description: "Check the email for confirmation!",
         action: (
-          <ToastAction altText="Generic Password" className="p-4"><Link href={'/signin'}>Go to Sign In</Link></ToastAction>
+          <ToastAction altText="Generic Password" className="p-4">
+            <Link href={"/signin"}>Go to Sign In</Link>
+          </ToastAction>
         ),
       });
 
-      console.log(res.data);
     } catch (error: any) {
       console.log(error);
     }

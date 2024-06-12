@@ -36,8 +36,6 @@ export default function LoginComponent() {
 
   const router = useRouter()
 
-
-  // Working!
   const timer = setTimeout(() => {
     toast({
       title: "Form Resetting!",
@@ -55,10 +53,6 @@ export default function LoginComponent() {
     },
   });
 
-
-//   email
-// : 
-// "dio@dio.com"
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
