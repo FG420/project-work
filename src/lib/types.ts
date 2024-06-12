@@ -8,6 +8,22 @@ export type Item = {
   categoryName: CategoryNames;
 };
 
+export type Supplier = {
+  supplierID: string;
+  description: string;
+};
+
+export type User = {
+  userID: string;
+  email: string;
+  password: string;
+  token: string | null;
+  tokenExpiration: string | Date | null; // ???
+  ip: string; // ???
+  lastLogin: string | Date | null; // ???
+  loginStatus: boolean; // ???
+};
+
 export type SidebarItem = {
   title: string;
   path: string;
