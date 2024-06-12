@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { Card } from "@/components/ui/card";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { Item } from "@/lib/types";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { Card } from '@/components/ui/card';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { Item } from '@/lib/types';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 export default function Items() {
   const [items, setItems] = useState<Item[]>([]);
@@ -13,7 +13,7 @@ export default function Items() {
 
   function trimTitle(title: string, maxLength: number = 40) {
     if (title.length > maxLength) {
-      return title.substring(0, maxLength) + "...";
+      return title.substring(0, maxLength) + '...';
     }
     return title;
   }
@@ -44,19 +44,30 @@ export default function Items() {
       <div
         className="items-container"
         style={{
-          display: "flex",
-          gap: "2rem",
-          flexWrap: "wrap",
-          justifyContent: "space-between"
+          display: 'flex',
+          gap: '2rem',
+          flexWrap: 'wrap',
+          justifyContent: 'space-between',
         }}
       >
         {items.map((item) => (
           <Card
-            style={{ padding: "1rem", width: "340px", cursor: "pointer", display: "flex", gap: "10px" }}
+            style={{
+              padding: '1rem',
+              width: '340px',
+              cursor: 'pointer',
+              display: 'flex',
+              gap: '10px',
+            }}
             key={item.asin}
             onClick={() => clickItem(item)}
           >
-            <Image src={`/images/${item.asin}/Image1.jpg`} width={64} height={64} alt="Item Image" />
+            <Image
+              src={`/images/${item.asin}/Image1.jpg`}
+              width={64}
+              height={64}
+              alt="Item Image"
+            />
             <span>
               <p className="font-semibold">{trimTitle(item.title)}</p>
               <p>ASIN: {item.asin}</p>

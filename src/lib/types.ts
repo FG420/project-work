@@ -1,4 +1,8 @@
-export type CategoryNames = "Videogiochi" | "Cavi e Accessori" | "Caffè Tè e bevande" | "Cartucce per stampanti";
+export type CategoryNames =
+  | 'Videogiochi'
+  | 'Cavi e Accessori'
+  | 'Caffè Tè e bevande'
+  | 'Cartucce per stampanti';
 
 export type Item = {
   asin: string;

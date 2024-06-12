@@ -1,16 +1,8 @@
 export interface Purchase {
   PurchaseID: number;
   SupplierID: number;
-  RecipeDate: Date;
+  RecipeDate: Date | string | number; //! ---------------
   RecipeNumber: string;
-}
-
-export interface PurchasedItem {
-  PurchasedItemID: number;
-  PurchaseID: number;
-  ASIN: number;
-  Quantity: number;
-  Price: number;
 }
 
 // Order
