@@ -45,7 +45,8 @@ const addSupplierSchema = z.object({
 
 
 export function DialogComponent ( { buttonName, title }: Prop ) {
-    
+    const [open, setOpen] = useState(false);
+
     const form = useForm<z.infer<typeof formSchema>>( {
         resolver: zodResolver( formSchema ),
         defaultValues: {
@@ -91,11 +92,12 @@ export function DialogComponent ( { buttonName, title }: Prop ) {
 
     function onAddSupplier(values: z.infer<typeof addSupplierSchema>) {
         createSupplier(values.name);
+        setOpen(false);
     }
 
     return (
         <main>
-            <Dialog>
+            <Dialog open={open} onOpenChange={setOpen}>
                 <DialogTrigger asChild>
                     <Button>{ buttonName }</Button>
                 </DialogTrigger>
@@ -163,7 +165,6 @@ export function DialogComponent ( { buttonName, title }: Prop ) {
                                     control={ addSupplierForm.control }
                                     name="name"
                                     render={ ( { field } ) => (
-                                        console.log(field),
                                         <FormItem>
                                             <FormLabel className="p-2">Name</FormLabel>
                                             <FormControl>
