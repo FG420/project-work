@@ -11,10 +11,10 @@ import { DialogComponent } from "@/components/dialog-trigger";
 async function getData (): Promise<Purchase[]> {
     // Fetch data from your API here.
     return purchases.map( ( purchase ) => ( {
-        id: purchase.id,
-        supplierId: purchase.supplierId,
-        recipeDate: new Date( purchase.recipeDate ).toLocaleDateString(),
-        recipe: purchase.recipe
+        PurchaseID: purchase.PurchaseID,
+        SupplierID: purchase.SupplierID,
+        RecipeDate: new Date( purchase.RecipeDate ).toLocaleDateString(),
+        RecipeNumber: purchase.RecipeNumber
     } ) );
 }
 

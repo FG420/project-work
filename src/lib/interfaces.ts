@@ -1,7 +1,7 @@
 export interface Purchase {
   PurchaseID: number;
   SupplierID: number;
-  RecipeDate: Date;
+  RecipeDate: Date | string | number; //! ---------------
   RecipeNumber: string;
 }
 

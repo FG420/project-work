@@ -64,7 +64,7 @@ export const columns: ColumnDef<Purchase>[] = [
             // Delete function working using the row supplier.id for verificatiion! 
             const deletePurchase = () => {
                 // API call for purchase deletion
-                console.log( purchase.id )
+                console.log( purchase.PurchaseID )
             }
 
 
