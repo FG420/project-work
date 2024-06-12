@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import Link from "next/link";
-import { useSelectedLayoutSegment } from "next/navigation";
+import Link from 'next/link';
+import { useSelectedLayoutSegment } from 'next/navigation';
 
 import {
   DropdownMenu,
@@ -18,7 +18,7 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu';
 
 import {
   Dialog,
@@ -28,27 +28,27 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog';
 
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@/components/ui/hover-card";
+} from '@/components/ui/hover-card';
 
-import useScroll from "@/hooks/use-scroll";
-import { cn } from "@/lib/utils";
-import axios from "axios";
-import { LogOut, User } from "lucide-react";
-import { Button } from "./ui/button";
-import { ChangePassComponent } from "./changepass";
+import useScroll from '@/hooks/use-scroll';
+import { cn } from '@/lib/utils';
+import axios from 'axios';
+import { LogOut, User } from 'lucide-react';
+import { Button } from './ui/button';
+import { ChangePassComponent } from './changepass';
 
 export const Header = () => {
   const [open, setOpen] = useState(false);
 
   const getUserData = async () => {
     try {
-      const res = await axios.get("");
+      const res = await axios.get('');
     } catch (error: any) {
       console.log(error);
     }
@@ -65,9 +65,9 @@ export const Header = () => {
       className={cn(
         `sticky inset-x-0 top-0 z-30 w-full transition-all border-b border-gray-200`,
         {
-          "border-b border-gray-200 bg-white/75 backdrop-blur-lg": scrolled,
-          "border-b border-gray-200": selectedLayout,
-        }
+          'border-b border-gray-200 bg-white/75 backdrop-blur-lg': scrolled,
+          'border-b border-gray-200': selectedLayout,
+        },
       )}
     >
       <div className="flex h-[47px] items-center justify-between px-4">
@@ -86,9 +86,7 @@ export const Header = () => {
             <Dialog open={open} onOpenChange={setOpen}>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <span className="font-semibold text-sm hover:cursor-pointer">
-                    HQ
-                  </span>
+                  <span className="font-semibold text-sm hover:cursor-pointer">HQ</span>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56">
                   <DropdownMenuLabel>My Account</DropdownMenuLabel>
@@ -97,7 +95,10 @@ export const Header = () => {
                     <DropdownMenuItem>
                       <User className="mr-2 h-4 w-4" />
                       <DialogTrigger asChild>
-                        <span className="hover:cursor-pointer" onClick={() => setOpen(true)}>
+                        <span
+                          className="hover:cursor-pointer"
+                          onClick={() => setOpen(true)}
+                        >
                           Change Password
                         </span>
                       </DialogTrigger>
@@ -106,7 +107,7 @@ export const Header = () => {
                   <DropdownMenuSeparator />
                   <DropdownMenuItem>
                     <LogOut className="mr-2 h-4 w-4" />
-                    <Link href={"/signin"}>Log out</Link>
+                    <Link href={'/signin'}>Log out</Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
