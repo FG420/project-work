@@ -19,6 +19,7 @@ export type Orders = {
   amount: number
   status: "pending" | "processing" | "success" | "failed"
   email: string
+  items: { productId: string, name: string, quantity: number, price: number }[]
 }
 
 export const columns: ColumnDef<Orders>[] = [
