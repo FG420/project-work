@@ -1,11 +1,14 @@
 'use client';
 
 import React, { useState } from 'react';
+
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+
 import { SidebarItems } from '@/lib/constants';
 import { SidebarItem } from '@/lib/types';
 import { Icon } from '@iconify/react';
+import { ModeToggle } from './ui/theme-toggle';
 
 export const SideNav = () => {
   return (
@@ -24,6 +27,7 @@ export const SideNav = () => {
             return <MenuItem key={idx} item={item} />;
           })}
         </div>
+        <ModeToggle></ModeToggle>
       </div>
     </div>
   );
