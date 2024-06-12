@@ -24,19 +24,19 @@ const formSchema = z.object( {
 
 export const columns: ColumnDef<Purchase>[] = [
     {
-        accessorKey: "id",
+        accessorKey: "PurchaseID",
         header: "ID",
     },
     {
-        accessorKey: "supplierId",
+        accessorKey: "SupplierID",
         header: "Supplier ID",
     },
     {
-        accessorKey: "recipeDate",
+        accessorKey: "RecipeDate",
         header: "Date of Purchase",
     },
     {
-        accessorKey: "recipe",
+        accessorKey: "RecipeNumber",
         header: "Recipe",
     },
     {
@@ -81,7 +81,7 @@ export const columns: ColumnDef<Purchase>[] = [
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
                         <DropdownMenuSeparator/>
-                        <DropdownMenuItem><Link href={`/dashboard/purchases/${purchase.id}`}>View Items</Link></DropdownMenuItem>
+                        <DropdownMenuItem><Link href={`/dashboard/purchases/${purchase.PurchaseID}`}>View Items</Link></DropdownMenuItem>
                         {/* <Dialog>
                             <DialogTrigger asChild>
                                 <DropdownMenuItem>Edit Purchase</DropdownMenuItem>
