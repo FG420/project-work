@@ -20,3 +20,14 @@ export async function deleteSupplier(id: string) {
     }
     revalidatePath("/dashboard/suppliers");
 }
+
+export async function updateSupplier(id: string, newName: string) {
+    try {
+        axios.put(`${process.env.NEXT_PUBLIC_BACKEND_URL}/Supplier/${id}`, {
+            description: newName
+        })
+    } catch (error) {
+        console.log(error)
+    }
+    revalidatePath("/dashboard/suppliers");
+}
