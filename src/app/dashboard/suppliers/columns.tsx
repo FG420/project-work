@@ -1,18 +1,16 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { Supplier } from "@/lib/interfaces"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
 import { MoreHorizontal } from "lucide-react"
-import { DialogComponent } from "@/components/dialog-trigger"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { z } from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useEffect } from "react"
+import { Supplier } from "@/lib/types"
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 
@@ -26,11 +24,11 @@ const formSchema = z.object( {
 
 export const columns: ColumnDef<Supplier>[] = [
     {
-        accessorKey: "id",
+        accessorKey: "supplierID",
         header: "ID",
     },
     {
-        accessorKey: "name",
+        accessorKey: "description",
         header: "Name",
     },
     {
@@ -58,8 +56,8 @@ export const columns: ColumnDef<Supplier>[] = [
 
             // Delete function working using the row supplier.id for verificatiion! 
             const deleteSupplier = () => {
-                // API call for supplier deletion
-                console.log( supplier.id )
+                //! API call for supplier deletion
+                // console.log( supplier.id )
             }
 
 

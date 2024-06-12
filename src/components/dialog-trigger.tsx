@@ -1,11 +1,8 @@
 'use client'
 
-
 import {
     Dialog,
     DialogContent,
-    DialogDescription,
-    DialogFooter,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
@@ -13,19 +10,18 @@ import {
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
-import {
-    Form,
+import { Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { date, z } from "zod"
+import { z } from "zod"
+import { createSupplier } from "@/lib/actions"
+import { useState } from "react"
 
 type Prop = {
     buttonName: string,
@@ -42,11 +38,14 @@ const deleteFormSchema = z.object( {
     id: z.coerce.number().int().positive(),
 } )
 
+const addSupplierSchema = z.object({
+    name: z.string().min(2)
+})
 
 
 
 export function DialogComponent ( { buttonName, title }: Prop ) {
-
+    
     const form = useForm<z.infer<typeof formSchema>>( {
         resolver: zodResolver( formSchema ),
         defaultValues: {
@@ -61,6 +60,13 @@ export function DialogComponent ( { buttonName, title }: Prop ) {
         resolver: zodResolver( deleteFormSchema ),
         defaultValues: {
             id: 1,
+        },
+    } );
+
+    const addSupplierForm = useForm<z.infer<typeof addSupplierSchema>>( {
+        resolver: zodResolver( addSupplierSchema ),
+        defaultValues: {
+            name: '',
         },
     } );
 
@@ -81,6 +87,10 @@ export function DialogComponent ( { buttonName, title }: Prop ) {
         } catch ( error ) {
             console.log( error );
         }
+    }
+
+    function onAddSupplier(values: z.infer<typeof addSupplierSchema>) {
+        createSupplier(values.name);
     }
 
     return (
@@ -147,16 +157,17 @@ export function DialogComponent ( { buttonName, title }: Prop ) {
                             </form>
                         </Form>
                     ) : (
-                        <Form { ...deleteForm }>
-                            <form onSubmit={ deleteForm.handleSubmit( onSubmit ) } className="space-y-8">
+                        <Form { ...addSupplierForm }>
+                            <form onSubmit={ addSupplierForm.handleSubmit( onAddSupplier ) } className="space-y-8">
                                 <FormField
-                                    control={ deleteForm.control }
-                                    name="id"
+                                    control={ addSupplierForm.control }
+                                    name="name"
                                     render={ ( { field } ) => (
+                                        console.log(field),
                                         <FormItem>
-                                            <FormLabel className="p-2">ID</FormLabel>
+                                            <FormLabel className="p-2">Name</FormLabel>
                                             <FormControl>
-                                                <Input placeholder="1" type="number" { ...field } />
+                                                <Input type="text" placeholder="Supplier Name" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>

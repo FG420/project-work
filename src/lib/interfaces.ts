@@ -1,8 +1,3 @@
-export interface Supplier {
-  SupplierID: number;
-  Description: string;
-}
-
 export interface Purchase {
   PurchaseID: number;
   SupplierID: number;
