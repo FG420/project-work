@@ -11,16 +11,11 @@ import { z } from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Supplier } from "@/lib/types"
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
-
+import { deleteSupplier } from "@/lib/actions"
 
 const formSchema = z.object( {
     name: z.string()
 } )
-
-
-
 
 export const columns: ColumnDef<Supplier>[] = [
     {
@@ -55,11 +50,9 @@ export const columns: ColumnDef<Supplier>[] = [
             }
 
             // Delete function working using the row supplier.id for verificatiion! 
-            const deleteSupplier = () => {
-                //! API call for supplier deletion
-                // console.log( supplier.id )
+            const delSupplier = () => {
+                deleteSupplier(supplier.supplierID)
             }
-
 
             return (
                 <DropdownMenu>
@@ -101,7 +94,7 @@ export const columns: ColumnDef<Supplier>[] = [
 
                             </DialogContent>
                         </Dialog>
-                        <DropdownMenuItem onClick={ deleteSupplier }>Delete supplier</DropdownMenuItem>
+                        <DropdownMenuItem onClick={ delSupplier }>Delete supplier</DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             )

@@ -11,3 +11,12 @@ export async function createSupplier(name: string) {
     }
     revalidatePath("/dashboard/suppliers");
 }
+
+export async function deleteSupplier(id: string) {
+    try {
+        await axios.delete(`${process.env.NEXT_PUBLIC_BACKEND_URL}/Supplier/${id}`);
+    } catch (error) {
+        console.log(error)
+    }
+    revalidatePath("/dashboard/suppliers");
+}
