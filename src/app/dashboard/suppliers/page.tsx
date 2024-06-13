@@ -7,10 +7,12 @@ import { DialogComponent } from '@/components/dialog-trigger';
 import { Supplier } from '@/lib/types';
 import { PagesSkeleton } from '@/components/skeletons';
 import { Suspense } from 'react';
-import axiosInstance from '@/lib/axios';
+import axiosInstanceServer from '@/lib/axios-server';
 
 async function getSuppliers(): Promise<Supplier[]> {
-  const res = await axiosInstance.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/Supplier`);
+  const res = await axiosInstanceServer.get(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/Supplier`,
+  );
   const suppliers: Supplier[] = res.data;
   return suppliers;
 }

@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-const axiosInstance = axios.create({
+const axiosInstanceClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
 });
 
-axiosInstance.interceptors.request.use(
+axiosInstanceClient.interceptors.request.use(
   (config) => {
     const tokenCookie = document.cookie
       .split('; ')
@@ -23,4 +23,4 @@ axiosInstance.interceptors.request.use(
   },
 );
 
-export default axiosInstance;
+export default axiosInstanceClient;
