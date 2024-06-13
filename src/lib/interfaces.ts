@@ -1,16 +1,7 @@
-// export interface Purchase {
-//   PurchaseID: number;
-//   SupplierID: number;
-//   RecipeDate: Date | string | number; //! ---------------
-//   RecipeNumber: string;
-// }
-
-// Order
-//! Da definire qualcosa per order scaricato o meno
 export interface Order {
   AmazonOrderId: string;
   PurchaseDate: Date;
-  OrderStatus: string; //? Serve???????????????????
+  OrderStatus: string;
   NumberOfItemsShipped: number;
   MarketplaceId: string;
 }
