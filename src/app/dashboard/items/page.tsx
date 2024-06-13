@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Item } from '@/lib/types';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import axiosInstance from '@/lib/axios';
 
 export default function Items() {
   const [items, setItems] = useState<Item[]>([]);
@@ -21,7 +21,9 @@ export default function Items() {
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const result = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL!}/Item`);
+        const result = await axiosInstance.get(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL!}/Item`,
+        );
         setItems(result.data);
       } catch (error) {
         console.log(error);

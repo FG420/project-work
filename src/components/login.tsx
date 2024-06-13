@@ -16,6 +16,7 @@ import { toast } from './ui/use-toast';
 import { ToastAction } from './ui/toast';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { setTokenCookie } from '@/lib/cookies';
 
 const formSchema = z.object({
   email: z.string().min(6, { message: 'Must have at least 5 character' }).email({
@@ -58,6 +59,7 @@ export default function LoginComponent() {
 
       console.log(res.data);
       if (res.status === 200) {
+        setTokenCookie(res.data);
         router.push('/dashboard');
       }
     } catch (error: any) {

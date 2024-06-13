@@ -2,13 +2,13 @@ import { DataTable } from './data-table';
 import { columns } from './columns';
 import { Input } from '@/components/ui/input';
 import { DialogComponent } from '@/components/dialog-trigger';
-import axios from 'axios';
 import { Supplier } from '@/lib/types';
 import { PagesSkeleton } from '@/components/skeletons';
 import { Suspense } from 'react';
+import axiosInstance from '@/lib/axios';
 
 async function getSuppliers(): Promise<Supplier[]> {
-  const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/Supplier`);
+  const res = await axiosInstance.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/Supplier`);
   const suppliers: Supplier[] = res.data;
   return suppliers;
 }
@@ -49,7 +49,6 @@ export default async function SuppliersPage() {
           </div>
         </Suspense>
       </main>
-      <PagesSkeleton />
     </>
   );
 }

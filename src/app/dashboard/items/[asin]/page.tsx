@@ -1,38 +1,61 @@
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-import fs from "fs";
-import Image from "next/image";
-import path from "path";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
+import axiosInstance from '@/lib/axios';
+import { Item } from '@/lib/types';
+import fs from 'fs';
+import Image from 'next/image';
+import path from 'path';
 
-const ItemPage = ({ params }) => {
+async function getItem(asin: string) {
+  console.log(asin);
+
+  const res = await axiosInstance.get(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/Item/${asin}`,
+  );
+  return res.data;
+}
+
+export default async function ItemPage({ params }: any) {
   console.log(params);
   const { asin } = params;
 
-  const imageDir = path.join(process.cwd(), "public", "images", asin);
+  const item: Item = await getItem(asin);
+  const imageDir = path.join(process.cwd(), 'public', 'images', asin);
 
   let images: string[] = [];
 
   try {
     images = fs.readdirSync(imageDir).filter((file) => /^Image\d+\.jpg$/.test(file));
   } catch (error) {
-    console.error("Failed to load images:", error);
+    console.error('Failed to load images:', error);
   }
 
   return (
-    <div className="flex items-center" style={{ border: "3px solid black" }}>
-      <h1>Item Page</h1>
-      <p>ASIN: {asin}</p>
-
+    <div style={{ border: '3px solid black', display: 'flex' }}>
       {images.length > 0 ? (
-        <Carousel style={{ border: "1px solid red", width: "500px", height: "500px" }}>
+        <Carousel
+          opts={{
+            align: 'end',
+          }}
+          style={{ border: '1px solid black', width: '450px', marginLeft: '80px' }}
+        >
           <CarouselContent>
             {images.map((filename, index) => (
               <CarouselItem key={index}>
-                <Image
+                {/* <Image
                   src={`/images/${asin}/${filename}`}
-                  style={{ height: "500px !important" }}
-                  width={500}
+                  width={1500}
                   height={200}
                   alt={`Item ${index + 1}`}
+                /> */}
+                <img
+                  src={`/images/${asin}/${filename}`}
+                  style={{ width: '500px', height: '500px' }}
                 />
               </CarouselItem>
             ))}
@@ -43,8 +66,12 @@ const ItemPage = ({ params }) => {
       ) : (
         <p>No images found.</p>
       )}
+
+      <div>
+        <p className="uppercase text-sm opacity-75">{item.categoryName}</p>
+        <p className="text-3xl uppercase">{item.title}</p>
+        <p>ASIN: {asin}</p>
+      </div>
     </div>
   );
-};
-
-export default ItemPage;
+}
