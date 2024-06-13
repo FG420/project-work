@@ -1,50 +1,29 @@
 'use client';
 
-import React, { useState } from 'react';
-
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useSelectedLayoutSegment } from 'next/navigation';
-
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
-
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from '@/components/ui/hover-card';
-
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import useScroll from '@/hooks/use-scroll';
 import { cn } from '@/lib/utils';
 import axios from 'axios';
 import { LogOut, User } from 'lucide-react';
-import { Button } from './ui/button';
 import { ChangePassComponent } from './changepass';
+import { useRouter } from 'next/navigation';
+import { removeTokenCookie } from '@/lib/cookies';
 
 export const Header = () => {
   const [open, setOpen] = useState(false);
+  const router = useRouter();
 
   const getUserData = async () => {
     try {
@@ -56,6 +35,17 @@ export const Header = () => {
 
   function closeDialog() {
     setOpen(false);
+  }
+
+  useEffect(() => {
+    if (!document.cookie) {
+      router.push('/signin');
+    }
+  }, []);
+
+  function handleLogout() {
+    removeTokenCookie();
+    router.push('/signin');
   }
 
   const scrolled = useScroll(5);
@@ -105,9 +95,9 @@ export const Header = () => {
                     </DropdownMenuItem>
                   </DropdownMenuGroup>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>
+                  <DropdownMenuItem onClick={handleLogout} style={{ cursor: 'pointer' }}>
                     <LogOut className="mr-2 h-4 w-4" />
-                    <Link href={'/signin'}>Log out</Link>
+                    <div>Log out</div>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>

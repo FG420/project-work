@@ -8,7 +8,6 @@ const jwtConfig = {
   secret: new TextEncoder().encode(process.env.NEXT_PUBLIC_JWT_SECRET),
 };
 
-// This function can be marked `async` if using `await` inside
 export async function middleware(req: NextRequest) {
   const token = req.cookies.get('token')?.value || '';
 
