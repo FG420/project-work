@@ -1,3 +1,5 @@
+'use client';
+
 import { purchases } from '@/lib/purchases';
 import { DataTable } from './data-table';
 import { columns } from './columns';
@@ -5,20 +7,58 @@ import { Purchase } from '@/lib/interfaces';
 import { Input } from '@/components/ui/input';
 import { InputDataComponent } from '@/components/input-data';
 import { DialogComponent } from '@/components/dialog-trigger';
-import { Suspense } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { PagesSkeleton } from '@/components/skeletons';
+import axios from 'axios';
 
-async function getData(): Promise<Purchase[]> {
-  return purchases.map((purchase) => ({
-    PurchaseID: purchase.PurchaseID,
-    SupplierID: purchase.SupplierID,
-    RecipeDate: new Date(purchase.RecipeDate).toLocaleDateString(),
-    RecipeNumber: purchase.RecipeNumber,
-  }));
-}
+// async function getData(): Promise<Purchase[]> {
+//   return purchases.map((purchase) => ({
+//     PurchaseID: purchase.PurchaseID,
+//     SupplierID: purchase.SupplierID,
+//     RecipeDate: new Date(purchase.RecipeDate).toLocaleDateString(),
+//     RecipeNumber: purchase.RecipeNumber,
+//   }));
+// }
 
-export default async function PurchasePage() {
-  const data = await getData();
+export default function PurchasePage() {
+  // const data = await getData();
+  const [data, setData] = useState<Purchase[]>([]);
+  const [filteredData, setFilteredData] = useState<Purchase[]>([]);
+
+  const getData = async () => {
+    const allPurchases = purchases.map((purchase) => ({
+          PurchaseID: purchase.PurchaseID,
+          SupplierID: purchase.SupplierID,
+          RecipeDate: new Date(purchase.RecipeDate).toLocaleDateString(),
+          RecipeNumber: purchase.RecipeNumber,
+        }));
+    setData(allPurchases);
+  };
+
+  const filterByRecipe = (recipe: string) => {
+    const filter = data.filter((purchase) => purchase.RecipeNumber.includes(recipe));
+    setFilteredData(filter);
+  };
+
+  const filterBySupplierId = (suppId: string) => {
+    const filter = data.filter((purchase) => purchase.SupplierID.toString().includes(suppId));
+    setFilteredData(filter);
+  };
+
+  const filterById = (id: string) => {
+    const filter = data.filter((purchase) => purchase.PurchaseID.toString().includes(id));
+    setFilteredData(filter);
+  };
+
+  const filterByDate = (date: string) => {
+    const filter = data.filter((purchase) => purchase.RecipeDate.toString().includes(date));
+    setFilteredData(filter);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <main>
       <div className="flex justify-end items-center pr-3">
@@ -27,26 +67,50 @@ export default async function PurchasePage() {
         </div>
       </div>
 
-      <Suspense key={crypto.randomUUID()} fallback={<PagesSkeleton />}>
+      {/* <Suspense key={crypto.randomUUID()} fallback={<PagesSkeleton />}> */}
         <div className="p-2 flex items-center justify-end">
           <div className="p-1">
-            <Input type="number" placeholder="Filter for ID" className="w-32 p-2"></Input>
+            <Input
+              type="number"
+              placeholder="Filter for Supplier ID"
+              className=" w-44 p-2"
+              onChange={(e) => filterBySupplierId(e.target.value)}
+            ></Input>
           </div>
           <div className="p-1">
-            <InputDataComponent></InputDataComponent>
+            <Input
+              type="number"
+              placeholder="Filter for ID"
+              className="w-32 p-2"
+              onChange={(e) => filterById(e.target.value)}
+            ></Input>
           </div>
+          <div className="p-1">
+            {/* <InputDataComponent></InputDataComponent> */}
+            <Input
+              type="date"
+              placeholder="Filter for Date"
+              className="w-34 p-2"
+              onChange={(e) => filterByDate(e.target.value)}
+            ></Input>          
+            </div>
           <div className="p-1">
             <Input
               type="text"
               placeholder="Filter for Recipe"
               className="w-32 lg:w-full p-2"
+              onChange={(e) => filterByRecipe(e.target.value)}
             ></Input>
           </div>
         </div>
         <div className="p-4">
-          <DataTable columns={columns} data={data} />
+          {filteredData.length !== 0 ? (
+            <DataTable columns={columns} data={filteredData} />
+          ) : (
+            <DataTable columns={columns} data={data} />
+          )}
         </div>
-      </Suspense>
+      {/* </Suspense> */}
     </main>
   );
 }
