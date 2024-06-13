@@ -1,5 +1,4 @@
-'use client'
-
+'use client';
 
 import {
   Card,
@@ -51,46 +50,34 @@ import { useEffect, useState } from 'react';
 //   },
 // ];
 
-
-
 export default function PurchaseItemsPage({ params }: any) {
-
   const [data, setData] = useState<PurchasedItem[]>([]);
 
-
-  const [puchaseId, setPurchaseId] = useState<Purchase>()
+  const [puchaseId, setPurchaseId] = useState<Purchase>();
 
   const getPurchaseId = async () => {
-    const getId = await axiosInstanceClient.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/Purchase/${params.id}`)
-    setPurchaseId(getId.data)
-  }
+    const getId = await axiosInstanceClient.get(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/Purchase/${params.id}`,
+    );
+    console.log(getId.data)
+    setPurchaseId(getId.data);
+  };
 
+  const getData = async () => {
+    const allPurchasedItems = await axiosInstanceClient.get(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/PurchasedItem`,
+    );
 
-  // const getData = async () => {
-  //   const allPurchasedItems = await axiosInstanceClient.get(
-  //     `${process.env.NEXT_PUBLIC_BACKEND_URL}/PurchasedItem`,
-  //   );
+    console.log(allPurchasedItems.data)
+    setData(allPurchasedItems.data);
+  };
 
-  //   // const purchases = allPurchases.data.map((purchase: any) => ({
-  //   //   purchaseID: purchase.purchaseID,
-  //   //   supplierID: purchase.supplierID,
-  //   //   purchaseDate: new Date(purchase.purchaseDate).toLocaleDateString(),
-  //   //   recipeNumber: purchase.recipeNumber,
-  //   //   isLoaded: purchase.isLoaded,
-  //   // }));
-
-  //   console.log(allPurchasedItems.data)
-  //   setData(allPurchasedItems.data);
-  // };
-
-
-  
   // const getData = data.filter((prodId) => prodId.purchaseId == params.id);
 
-
-  // useEffect(() => {
-  //   getData();
-  // }, []);
+  useEffect(() => {
+    getPurchaseId();
+    getData();
+  }, []);
 
   return (
     <main>

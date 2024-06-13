@@ -19,6 +19,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { MoreHorizontal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { useState } from 'react';
+import { changeLoadedPurchase, deletePurchase } from '@/lib/actions';
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -46,13 +48,15 @@ export const columns: ColumnDef<Purchase>[] = [
   },
   {
     accessorKey: 'isLoaded',
-    header: 'Loaded'
+    header: 'Loaded',
   },
   {
     id: 'actions',
     enableHiding: false,
     cell: ({ row }) => {
       const purchase = row.original;
+
+      const [open, setOpen] = useState(false);
 
       const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -71,11 +75,13 @@ export const columns: ColumnDef<Purchase>[] = [
         }
       }
 
-      // Delete function working using the row supplier.id for verificatiion!
-      const deletePurchase = () => {
-        // API call for purchase deletion
-        console.log(purchase.purchaseID);
+      const delPurchase = () => {
+        deletePurchase(purchase.purchaseID);
       };
+
+      const changeLoaded = () => {
+        changeLoadedPurchase(purchase.purchaseID, true)
+      }
 
       return (
         <DropdownMenu>
@@ -91,37 +97,15 @@ export const columns: ColumnDef<Purchase>[] = [
             <DropdownMenuItem>
               <Link href={`/dashboard/purchases/${purchase.purchaseID}`}>View Items</Link>
             </DropdownMenuItem>
-            {/* <Dialog>
-                            <DialogTrigger asChild>
-                                <DropdownMenuItem>Edit Purchase</DropdownMenuItem>
-                            </DialogTrigger>
-                            <DialogContent className="sm:max-w-[425px]">
-                                <DialogHeader>
-                                    <DialogTitle className="text-center">Edit Purchase</DialogTitle>
-                                </DialogHeader>
-                                <Form { ...form }>
-                                    <form onSubmit={ form.handleSubmit( onSubmit ) } className="space-y-8">
-                                        <FormField
-                                            control={ form.control }
-                                            name="name"
-                                            render={ ( { field } ) => (
-                                                <FormItem>
-                                                    <FormLabel className="p-2">Name</FormLabel>
-                                                    <FormControl>
-                                                        <Input placeholder="Change the supplier name" type="text" { ...field } />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            ) } />
-                                        <div className="flex justify-center ">
-                                            <Button type="submit" >Edit</Button>
-                                        </div>
-                                    </form>
-                                </Form>
-
-                            </DialogContent>
-                        </Dialog> */}
-            <DropdownMenuItem onClick={deletePurchase}>Delete Purchase</DropdownMenuItem>
+            {purchase.isLoaded === false ? (
+              <DropdownMenuItem
+                className="hover:cursor-pointer"
+                onClick={changeLoaded}
+              >Load Purchase</DropdownMenuItem>
+            ) : null}
+            <DropdownMenuItem className="hover:cursor-pointer" onClick={delPurchase}>
+              Delete Purchase
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

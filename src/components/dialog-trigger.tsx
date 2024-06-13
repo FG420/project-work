@@ -29,7 +29,7 @@ type Prop = {
   title: string;
 };
 
-const formSchema = z.object({
+const newPurchaseFormSchema = z.object({
   id: z.coerce.number().int().positive(),
   supplierId: z.coerce.number().int().positive(),
   recipeDate: z.string(),
@@ -46,8 +46,8 @@ const addSupplierSchema = z.object({
 export function DialogComponent({ buttonName, title }: Prop) {
   const [open, setOpen] = useState(false);
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const newPurchase = useForm<z.infer<typeof newPurchaseFormSchema>>({
+    resolver: zodResolver(newPurchaseFormSchema),
     defaultValues: {
       id: 1,
       supplierId: 1,
@@ -70,7 +70,7 @@ export function DialogComponent({ buttonName, title }: Prop) {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema | typeof deleteFormSchema>) {
+  function onSubmit(values: z.infer<typeof newPurchaseFormSchema | typeof deleteFormSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     try {
@@ -80,7 +80,7 @@ export function DialogComponent({ buttonName, title }: Prop) {
         console.log('purchase deleted');
       } else if (buttonName === 'New Purchase') {
         // Create a new purchase
-        form.trigger();
+        newPurchase.trigger();
         console.log('purchase added');
       }
       console.log(values);
@@ -105,10 +105,10 @@ export function DialogComponent({ buttonName, title }: Prop) {
             <DialogTitle className="text-center">{title}</DialogTitle>
           </DialogHeader>
           {buttonName === 'New Purchase' ? (
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <Form {...newPurchase}>
+              <form onSubmit={newPurchase.handleSubmit(onSubmit)} className="space-y-8">
                 <FormField
-                  control={form.control}
+                  control={newPurchase.control}
                   name="id"
                   render={({ field }) => (
                     <FormItem>
@@ -121,7 +121,7 @@ export function DialogComponent({ buttonName, title }: Prop) {
                   )}
                 />
                 <FormField
-                  control={form.control}
+                  control={newPurchase.control}
                   name="supplierId"
                   render={({ field }) => (
                     <FormItem>
@@ -134,7 +134,7 @@ export function DialogComponent({ buttonName, title }: Prop) {
                   )}
                 />
                 <FormField
-                  control={form.control}
+                  control={newPurchase.control}
                   name="recipeDate"
                   render={({ field }) => (
                     <FormItem>
@@ -147,7 +147,7 @@ export function DialogComponent({ buttonName, title }: Prop) {
                   )}
                 />
                 <FormField
-                  control={form.control}
+                  control={newPurchase.control}
                   name="recipe"
                   render={({ field }) => (
                     <FormItem>

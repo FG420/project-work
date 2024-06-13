@@ -1,6 +1,5 @@
 'use client';
 
-import { purchases } from '@/lib/purchases';
 import { DataTable } from './data-table';
 import { columns } from './columns';
 // import { Purchase } from '@/lib/interfaces';
@@ -20,17 +19,8 @@ import {
 } from '@/components/ui/select';
 import axiosInstanceClient from '@/lib/axios-client';
 
-// async function getData(): Promise<Purchase[]> {
-//   return purchases.map((purchase) => ({
-//     PurchaseID: purchase.PurchaseID,
-//     SupplierID: purchase.SupplierID,
-//     RecipeDate: new Date(purchase.RecipeDate).toLocaleDateString(),
-//     RecipeNumber: purchase.RecipeNumber,
-//   }));
-// }
-
 export default function PurchasePage() {
-  // const data = await getData();
+
   const [data, setData] = useState<Purchase[]>([]);
   const [filteredData, setFilteredData] = useState<Purchase[]>([]);
 
