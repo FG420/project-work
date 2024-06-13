@@ -1,11 +1,11 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import axiosInstance from './axios';
+import axiosInstanceServer from './axios-server';
 
 export async function createSupplier(name: string) {
   try {
-    await axiosInstance.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/Supplier`, {
+    await axiosInstanceServer.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/Supplier`, {
       description: name,
     });
   } catch (error) {
@@ -16,7 +16,9 @@ export async function createSupplier(name: string) {
 
 export async function deleteSupplier(id: string) {
   try {
-    await axiosInstance.delete(`${process.env.NEXT_PUBLIC_BACKEND_URL}/Supplier/${id}`);
+    await axiosInstanceServer.delete(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/Supplier/${id}`,
+    );
   } catch (error) {
     console.log(error);
   }
@@ -25,7 +27,7 @@ export async function deleteSupplier(id: string) {
 
 export async function updateSupplier(id: string, newName: string) {
   try {
-    axiosInstance.put(`${process.env.NEXT_PUBLIC_BACKEND_URL}/Supplier/${id}`, {
+    axiosInstanceServer.put(`${process.env.NEXT_PUBLIC_BACKEND_URL}/Supplier/${id}`, {
       description: newName,
     });
   } catch (error) {

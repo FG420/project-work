@@ -5,7 +5,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import axiosInstance from '@/lib/axios';
+import axiosInstanceServer from '@/lib/axios-server';
 import { Item } from '@/lib/types';
 import fs from 'fs';
 import Image from 'next/image';
@@ -14,7 +14,7 @@ import path from 'path';
 async function getItem(asin: string) {
   console.log(asin);
 
-  const res = await axiosInstance.get(
+  const res = await axiosInstanceServer.get(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/Item/${asin}`,
   );
   return res.data;
