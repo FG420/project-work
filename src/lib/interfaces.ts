@@ -1,39 +1,8 @@
-//! Da vedere se si può cambiare il nome in qualcosa di più significativo alcune proprietà e/o anche il pascal case
-
-// TODO 1. Decidere Struttura Pagina Home
-
-//! Avvisare Gruppo Backend
-// TODO 2. Per ogni tentativo di accesso memorizzare in una Tabella del database l’indirizzo IP, data/ora e se l'accesso è valido oppure no
-export interface Item {
-  ASIN: string;
-  Title: string;
-  Stock: number;
-  CategoryID: number;
-}
-
-export interface Category {
-  CategoryID: number;
-  Description: string;
-}
-
-export interface Supplier {
-  SupplierID: number;
-  Description: string;
-}
-
 export interface Purchase {
   PurchaseID: number;
   SupplierID: number;
-  RecipeDate: Date;
+  RecipeDate: Date | string | number; //! ---------------
   RecipeNumber: string;
-}
-
-export interface PurchasedItem {
-  PurchasedItemID: number;
-  PurchaseID: number;
-  ASIN: number;
-  Quantity: number;
-  Price: number;
 }
 
 // Order

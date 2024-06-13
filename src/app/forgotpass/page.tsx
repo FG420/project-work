@@ -1,7 +1,7 @@
-import ForgotPass from '@/components/forgotpass'
-import { Card } from '@/components/ui/card'
-import { Tabs, TabsContent } from '@/components/ui/tabs'
-import React from 'react'
+import ForgotPass from '@/components/forgotpass';
+import { Card } from '@/components/ui/card';
+import { Tabs, TabsContent } from '@/components/ui/tabs';
+import React from 'react';
 
 function ForgotPassPage() {
   return (
@@ -9,12 +9,12 @@ function ForgotPassPage() {
       <Tabs defaultValue="forgotpass" className="w-[400px]">
         <TabsContent value="forgotpass">
           <Card>
-            <ForgotPass/>
+            <ForgotPass />
           </Card>
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }
 
-export default ForgotPassPage
+export default ForgotPassPage;

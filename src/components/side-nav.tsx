@@ -1,13 +1,14 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
-import { SidebarItems } from "@/lib/constants";
-import { SidebarItem } from "@/lib/types";
-import { Icon } from "@iconify/react";
+import { SidebarItems } from '@/lib/constants';
+import { SidebarItem } from '@/lib/types';
+import { Icon } from '@iconify/react';
+import { ModeToggle } from './ui/theme-toggle';
 
 export const SideNav = () => {
   return (
@@ -26,6 +27,7 @@ export const SideNav = () => {
             return <MenuItem key={idx} item={item} />;
           })}
         </div>
+        <ModeToggle></ModeToggle>
       </div>
     </div>
   );
@@ -45,7 +47,7 @@ const MenuItem = ({ item }: { item: SidebarItem }) => {
           <button
             onClick={toggleSubMenu}
             className={`flex flex-row items-center p-2 rounded-lg w-full justify-between ${
-              pathname.includes(item.path) ? "border-2 border-sky-500" : ""
+              pathname.includes(item.path) ? 'border-2 border-sky-500' : ''
             }`}
           >
             <div className="flex flex-row space-x-4 items-center">
@@ -53,7 +55,7 @@ const MenuItem = ({ item }: { item: SidebarItem }) => {
               <span className="font-semibold text-xl  flex">{item.title}</span>
             </div>
 
-            <div className={`${subMenuOpen ? "rotate-180" : ""} flex`}>
+            <div className={`${subMenuOpen ? 'rotate-180' : ''} flex`}>
               <Icon icon="lucide:chevron-down" width="24" height="24" />
             </div>
           </button>
@@ -62,7 +64,11 @@ const MenuItem = ({ item }: { item: SidebarItem }) => {
             <div className="my-2 ml-12 flex flex-col space-y-4">
               {item.subMenuItems?.map((subItem, idx) => {
                 return (
-                  <Link key={idx} href={subItem.path} className={`${subItem.path === pathname ? "font-bold" : ""}`}>
+                  <Link
+                    key={idx}
+                    href={subItem.path}
+                    className={`${subItem.path === pathname ? 'font-bold' : ''}`}
+                  >
                     <span>{subItem.title}</span>
                   </Link>
                 );
@@ -74,7 +80,7 @@ const MenuItem = ({ item }: { item: SidebarItem }) => {
         <Link
           href={item.path}
           className={`flex flex-row space-x-4 items-center p-2 rounded-lg ${
-            item.path === pathname ? "border border-sky-500" : ""
+            item.path === pathname ? 'border border-sky-500' : ''
           }`}
         >
           {item.icon}

@@ -52,6 +52,5 @@ export default async function OrdersPage() {
         <DataOrderTable columns={columns} data={data} />
       </div>
     </>
-    
-  )
+  );
 }
