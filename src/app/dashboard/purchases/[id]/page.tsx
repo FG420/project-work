@@ -45,7 +45,12 @@ export const data = [
   },
 ];
 
+
+
 export default function PurchaseItemsPage({ params }: any) {
+
+
+  
   const getData = data.filter((prodId) => prodId.purchaseId == params.id);
 
   return (

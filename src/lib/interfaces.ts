@@ -1,9 +1,9 @@
-export interface Purchase {
-  PurchaseID: number;
-  SupplierID: number;
-  RecipeDate: Date | string | number; //! ---------------
-  RecipeNumber: string;
-}
+// export interface Purchase {
+//   PurchaseID: number;
+//   SupplierID: number;
+//   RecipeDate: Date | string | number; //! ---------------
+//   RecipeNumber: string;
+// }
 
 // Order
 //! Da definire qualcosa per order scaricato o meno

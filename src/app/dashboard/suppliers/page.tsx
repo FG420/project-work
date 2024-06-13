@@ -8,11 +8,6 @@ import axios from 'axios';
 import { Supplier } from '@/lib/types';
 import { useEffect, useState } from 'react';
 
-// async function getSuppliers(): Promise<Supplier[]> {
-//   const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/Supplier`);
-//   const suppliers: Supplier[] = res.data;
-//   return suppliers;
-// }
 
 export default function SuppliersPage() {
   // const data = await getSuppliers();
@@ -27,12 +22,12 @@ export default function SuppliersPage() {
   };
 
   const filterByName = (name: string) => {
-    const filter = data.filter((supplier) => supplier.description.includes(name));
+    const filter = data.filter((supplier) => supplier.Description.includes(name));
     setFilteredData(filter);
   };
 
   const filterById = (id: string) => {
-    const filter = data.filter((supplier) => supplier.supplierID.includes(id));
+    const filter = data.filter((supplier) => supplier.SupplierID.includes(id));
     setFilteredData(filter);
   };
 

@@ -1,22 +1,9 @@
 'use client';
 
 import { ColumnDef } from '@tanstack/react-table';
-import { Purchase } from '@/lib/interfaces';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+// import { Purchase } from '@/lib/interfaces';
+import { Purchase } from '@/lib/types';
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -25,7 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Input } from '@/components/ui/input';
+
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -56,6 +43,10 @@ export const columns: ColumnDef<Purchase>[] = [
   {
     accessorKey: 'RecipeNumber',
     header: 'Recipe',
+  },
+  {
+    accessorKey: 'IsLoaded',
+    header: 'Loaded'
   },
   {
     id: 'actions',
