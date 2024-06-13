@@ -29,23 +29,23 @@ const formSchema = z.object({
 
 export const columns: ColumnDef<Purchase>[] = [
   {
-    accessorKey: 'PurchaseID',
+    accessorKey: 'purchaseID',
     header: 'ID',
   },
   {
-    accessorKey: 'SupplierID',
+    accessorKey: 'supplierID',
     header: 'Supplier ID',
   },
   {
-    accessorKey: 'RecipeDate',
+    accessorKey: 'purchaseDate',
     header: 'Date of Purchase',
   },
   {
-    accessorKey: 'RecipeNumber',
+    accessorKey: 'recipeNumber',
     header: 'Recipe',
   },
   {
-    accessorKey: 'IsLoaded',
+    accessorKey: 'isLoaded',
     header: 'Loaded'
   },
   {
@@ -74,7 +74,7 @@ export const columns: ColumnDef<Purchase>[] = [
       // Delete function working using the row supplier.id for verificatiion!
       const deletePurchase = () => {
         // API call for purchase deletion
-        console.log(purchase.PurchaseID);
+        console.log(purchase.purchaseID);
       };
 
       return (
@@ -89,7 +89,7 @@ export const columns: ColumnDef<Purchase>[] = [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-              <Link href={`/dashboard/purchases/${purchase.PurchaseID}`}>View Items</Link>
+              <Link href={`/dashboard/purchases/${purchase.purchaseID}`}>View Items</Link>
             </DropdownMenuItem>
             {/* <Dialog>
                             <DialogTrigger asChild>

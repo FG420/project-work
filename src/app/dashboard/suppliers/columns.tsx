@@ -33,11 +33,11 @@ const formSchema = z.object({
 
 export const columns: ColumnDef<Supplier>[] = [
   {
-    accessorKey: 'SupplierID',
+    accessorKey: 'supplierID',
     header: 'ID',
   },
   {
-    accessorKey: 'Description',
+    accessorKey: 'description',
     header: 'Name',
   },
   {
@@ -56,12 +56,12 @@ export const columns: ColumnDef<Supplier>[] = [
 
       function onSubmit(values: z.infer<typeof formSchema>) {
         setOpen(false);
-        updateSupplier(supplier.SupplierID, values.name);
+        updateSupplier(supplier.supplierID, values.name);
       }
 
       // Delete function working using the row supplier.id for verification!
       const delSupplier = () => {
-        deleteSupplier(supplier.SupplierID);
+        deleteSupplier(supplier.supplierID);
       };
 
       return (

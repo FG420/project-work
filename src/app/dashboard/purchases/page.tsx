@@ -11,7 +11,14 @@ import { DialogComponent } from '@/components/dialog-trigger';
 import { Suspense, useEffect, useState } from 'react';
 import { PagesSkeleton } from '@/components/skeletons';
 import axios from 'axios';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import axiosInstanceClient from '@/lib/axios-client';
 
 // async function getData(): Promise<Purchase[]> {
 //   return purchases.map((purchase) => ({
@@ -28,43 +35,54 @@ export default function PurchasePage() {
   const [filteredData, setFilteredData] = useState<Purchase[]>([]);
 
   const getData = async () => {
-    // const allPurchases = purchases.map((purchase) => ({
-    //       PurchaseID: purchase.PurchaseID,
-    //       SupplierID: purchase.SupplierID,
-    //       RecipeDate: new Date(purchase.RecipeDate).toLocaleDateString(),
-    //       RecipeNumber: purchase.RecipeNumber,
-    //       IsLoaded: purchase.IsLoaded,
-    //     }));
-    const allPurchases = await axios.get(
+    const allPurchases = await axiosInstanceClient.get(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/Purchase`,
     );
-    setData(allPurchases.data);
+
+    const purchases = allPurchases.data.map((purchase: any) => ({
+      purchaseID: purchase.purchaseID,
+      supplierID: purchase.supplierID,
+      purchaseDate: new Date(purchase.purchaseDate).toLocaleDateString(),
+      recipeNumber: purchase.recipeNumber,
+      isLoaded: purchase.isLoaded,
+    }));
+
+    setData(purchases);
   };
 
   const filterById = (id: string) => {
-    const filter = data.filter((purchase) => purchase.PurchaseID.includes(id));
+    const filter = data.filter((purchase) => purchase.purchaseID.includes(id));
     setFilteredData(filter);
   };
 
   const filterBySupplierId = (suppId: string) => {
-    const filter = data.filter((purchase) => purchase.SupplierID.includes(suppId));
+    const filter = data.filter((purchase) => purchase.supplierID.includes(suppId));
     setFilteredData(filter);
   };
 
   const filterByRecipe = (recipe: string) => {
-    const filter = data.filter((purchase) => purchase.RecipeNumber.includes(recipe));
+    const filter = data.filter((purchase) => purchase.recipeNumber.includes(recipe));
     setFilteredData(filter);
   };
 
   const filterByDate = (date: string) => {
     const filter = data.filter((purchase) =>
-      purchase.RecipeDate.toString().includes(date),
+      purchase.purchaseDate.toString().includes(date),
     );
     setFilteredData(filter);
   };
-  const filterByLoaded = (loaded: string) => {
-    const filter = data.filter((purchase) => purchase.RecipeDate);
-    setFilteredData(filter);
+
+  const filterByLoaded = (loaded: any) => {
+    console.log(loaded);
+    if (loaded === 'all') {
+      setFilteredData(data);
+    } else if (loaded === 'only-loaded') {
+      const filter = data.filter((purchase) => purchase.isLoaded == true);
+      setFilteredData(filter);
+    } else {
+      const filter = data.filter((purchase) => purchase.isLoaded == false);
+      setFilteredData(filter);
+    }
   };
 
   useEffect(() => {
@@ -83,7 +101,7 @@ export default function PurchasePage() {
       <div className="p-2 flex items-center justify-around">
         <div className="p-1">
           <Input
-            type="number"
+            type="text"
             placeholder="Filter for ID"
             className=" w-32 p-2"
             onChange={(e) => filterById(e.target.value)}
@@ -91,7 +109,7 @@ export default function PurchasePage() {
         </div>
         <div className="p-1">
           <Input
-            type="number"
+            type="text"
             placeholder="Filter for Supplier ID"
             className="w-44 p-2"
             onChange={(e) => filterBySupplierId(e.target.value)}
@@ -115,11 +133,11 @@ export default function PurchasePage() {
           ></Input>
         </div>
         <div className="p-1">
-          <Select>
-            <SelectTrigger className="w-[180px]" >
-              <SelectValue placeholder="Loaded Purchase" />
+          <Select onValueChange={(e) => filterByLoaded(e)}>
+            <SelectTrigger className="w-[186px]">
+              <SelectValue placeholder="Display Purchases" />
             </SelectTrigger>
-            <SelectContent >
+            <SelectContent>
               <SelectItem value="all">All</SelectItem>
               <SelectItem value="only-loaded">Only Loaded</SelectItem>
               <SelectItem value="not-loaded">Only Not Loaded</SelectItem>
