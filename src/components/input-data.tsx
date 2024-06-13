@@ -27,7 +27,10 @@ export function InputDataComponent() {
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
-        <Calendar mode="single" selected={date} onSelect={setDate} initialFocus />
+        <Calendar mode="single" 
+        selected={date}
+        onSelect={setDate}
+        initialFocus />
       </PopoverContent>
     </Popover>
   );

@@ -17,6 +17,23 @@ export type Supplier = {
   description: string;
 };
 
+export type Purchase = {
+  purchaseID: string;
+  supplierID: string;
+  purchaseDate: Date | string | number;
+  // recipeDate: Date;
+  recipeNumber: string;
+  isLoaded: boolean
+}
+
+export type PurchasedItem = {
+  purchasedItemID: string;
+  purchaseID: string;
+  asin: string;
+  quantity: number;
+  price: number;
+}
+
 export type User = {
   userID: string;
   email: string;
