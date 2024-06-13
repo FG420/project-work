@@ -1,25 +1,30 @@
 "use client"
 
 import { TableCell, TableRow } from "@/components/ui/table"
+import { OrderItem } from "@/lib/interfaces"
 
-interface OrderItemsProps {
-  items: { productId: string, name: string, quantity: number, price: number }[]
-}
 
-export default function OrderItems({ items }: OrderItemsProps) {
+
+export default function OrderItems({ items }: {items: OrderItem[]}) {
   return (
     <>
-      {items ? (
+      {items && items.length > 0 ? (
         items.map((item) => (
-          <TableRow key={item.productId}>
-            <TableCell>{item.name}</TableCell>
-            <TableCell>{item.quantity}</TableCell>
+          <TableRow key={item.OrderItemId}>
+            <TableCell>{item.AmazonOrderId}</TableCell>
+            <TableCell>{item.ASIN}</TableCell>
+            <TableCell>{item.Title}</TableCell>
+            <TableCell>{item.QuantityOrdered}</TableCell>
             <TableCell>
-              {new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(item.price)}
+              {new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(item.ItemPrice)}
             </TableCell>
           </TableRow>
         ))
-      ) : null}
+      ) : (
+          <TableRow>
+            <TableCell colSpan={5} className="text-center">No items found.</TableCell>
+          </TableRow>
+      )}
     </>
   )
 }

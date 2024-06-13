@@ -1,6 +1,5 @@
 "use client"
-
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -9,7 +8,7 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   useReactTable,
-} from "@tanstack/react-table"
+} from "@tanstack/react-table";
 
 import {
   Table,
@@ -18,21 +17,21 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
-import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible"
-import OrderItems from "@/components/table/order-items"
-import { Orders } from "./columns"
-import React from "react"
-import { Input } from "../ui/input"
+} from "@/components/ui/table";
+import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
+import OrderItems from "@/components/table/order-items";
+import { Order, OrderItem } from "@/lib/interfaces";
+import React from "react";
+import { Input } from "../ui/input";
 
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]
-  data: TData[]
+  columns: ColumnDef<TData, TValue>[];
+  data: TData[];
 }
 
-export function DataOrderTable<TData, TValue>({ columns, data }: DataTableProps<Orders, any>) {
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
-  
+export function DataOrderTable<TData, TValue>({ columns, data }: DataTableProps<Order, any>) {
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
+
   const table = useReactTable({
     data,
     columns,
@@ -43,17 +42,16 @@ export function DataOrderTable<TData, TValue>({ columns, data }: DataTableProps<
     state: {
       columnFilters,
     },
-  })
-  
+  });
 
   return (
     <div>
       <div className="flex items-center py-4">
         <Input
-          placeholder="Filter id"
-          value={(table.getColumn("id")?.getFilterValue() as string) ?? ""}
+          placeholder="Filter ID"
+          value={(table.getColumn("AmazonOrderId")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("id")?.setFilterValue(event.target.value)
+            table.getColumn("AmazonOrderId")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
@@ -86,7 +84,7 @@ export function DataOrderTable<TData, TValue>({ columns, data }: DataTableProps<
                     <CollapsibleContent asChild>
                       <TableRow>
                         <TableCell colSpan={columns.length}>
-                          <OrderItems items={row.original.items} />
+                          <OrderItems items={row.original.Items} />
                         </TableCell>
                       </TableRow>
                     </CollapsibleContent>

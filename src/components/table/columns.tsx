@@ -1,66 +1,64 @@
 "use client"
 
-import { ColumnDef } from "@tanstack/react-table"
-import { Button } from "@/components/ui/button"
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
-import OrderItems from "@/components/table/order-items" 
+import { ColumnDef } from "@tanstack/react-table";
+import { Button } from "@/components/ui/button";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import OrderItems from "@/components/table/order-items";
 import { ChevronDown } from 'lucide-react';
-import { TableRow } from "../ui/table"
+import { Order, OrderItem } from "@/lib/interfaces";
 
-export type Orders = {
-  id: string
-  amount: number
-  status: "pending" | "processing" | "success" | "failed"
-  email: string
-  items: { productId: string, name: string, quantity: number, price: number }[]
+interface OrderWithItems extends Order {
+  Items: OrderItem[];
 }
 
-export const columns: ColumnDef<Orders>[] = [
+export const columns: ColumnDef<Order>[] = [
+
   {
-    accessorKey: "id",
-    header: "ID"
+    accessorKey: "AmazonOrderId",
+    header: "ID Amazon",
   },
   {
-    accessorKey: "status",
-    header: "Status",
-  },
-  {
-    accessorKey: "email",
-    header: "Email",
-  },
-  {
-    accessorKey: "amount",
-    header: () => <div className="text-right">Amount</div>,
+    accessorKey: "PurchaseDate",
+    header: "Purchase Date",
     cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"))
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount)
-      return <div className="text-right font-medium">{formatted}</div>
-    }
+      const date = new Date(row.getValue("PurchaseDate"));
+      return date.toLocaleDateString("it-IT");
+    },
+  },
+  {
+    accessorKey: "OrderStatus",
+    header: "Order Status",
+  },
+  {
+    accessorKey: "NumberOfItemsShipped",
+    header: "N. Items Shipped",
+  },
+  {
+    accessorKey: "MarketplaceId",
+    header: "Marketplace Id",
   },
   {
     id: "expand",
     header: () => null,
     cell: ({ row }) => {
-      const order = row.original
+      const order = row.original;
+
       return (
-        
-          <Collapsible asChild>
+        <Collapsible asChild>
           <>
             <CollapsibleTrigger asChild>
               <Button variant="outline" size="sm">
-              <ChevronDown className="h-4 w-4" />
+                <ChevronDown className="h-4 w-4" />
               </Button>
             </CollapsibleTrigger>
             <CollapsibleContent asChild>
-              <OrderItems items={order.items} />
+              <div className="px-4 pb-4">
+                <OrderItems items={order.Items} />
+              </div>
             </CollapsibleContent>
           </>
         </Collapsible>
-        
-      )
-    }
-  }
-]
+      );
+    },
+  },
+];

@@ -1,181 +1,50 @@
-import { Orders, columns } from "../../../components/table/columns"
+import { Order, OrderItem } from "@/lib/interfaces";
+import { columns } from "../../../components/table/columns"
 import { DataOrderTable } from "../../../components/table/order-data-table"
 
-async function getData(): Promise<Orders[]> {
+async function getData(): Promise<{ orders: Order[]; items: OrderItem[] }> {
   // Use axios to call for the data
-  return [ 
+  const orders: Order[] = [
     {
-      id: "m5gr84i9",
-      amount: 316,
-      status: "success",
-      email: "ken99@yahoo.com",
-      items: [
-        { "productId": "p1", "name": "Product 1", "quantity": 1, "price": 100 },
-        { "productId": "p2", "name": "Product 2", "quantity": 2, "price": 50 },
-        { "productId": "p3", "name": "Product 3", "quantity": 3, "price": 22 }
-      ]
+      AmazonOrderId: "m5gr84i9",
+      PurchaseDate: new Date(),
+      OrderStatus: "success",
+      NumberOfItemsShipped: 3,
+      MarketplaceId: "ATAKAS8KX0DER",
     },
     {
-      id: "3u1reuv4",
-      amount: 242,
-      status: "success",
-      email: "Abe45@gmail.com",
-      items: [
-        { "productId": "p4", "name": "Product 4", "quantity": 1, "price": 60 },
-        { "productId": "p5", "name": "Product 5", "quantity": 2, "price": 70 },
-        { "productId": "p6", "name": "Product 6", "quantity": 3, "price": 37 }
-      ]
-
+      AmazonOrderId: "ff5graSGt65",
+      PurchaseDate: new Date(),
+      OrderStatus: "failed",
+      NumberOfItemsShipped: 98,
+      MarketplaceId: "AQWEDB283R",
     },
     {
-      id: "derv1ws0",
-      amount: 837,
-      status: "processing",
-      email: "Monserrat44@gmail.com",
-      items: [
-        { "productId": "p7", "name": "Product 7", "quantity": 1, "price": 300 },
-        { "productId": "p8", "name": "Product 8", "quantity": 2, "price": 200 },
-        { "productId": "p9", "name": "Product 9", "quantity": 3, "price": 79 }
-      ]
-
-    },
-    {
-      id: "5kma53ae",
-      amount: 874,
-      status: "success",
-      email: "Silas22@gmail.com",
-      items: [
-        { "productId": "p10", "name": "Product 10", "quantity": 1, "price": 400 },
-        { "productId": "p11", "name": "Product 11", "quantity": 2, "price": 250 },
-        { "productId": "p12", "name": "Product 12", "quantity": 3, "price": 74 }
-      ]
-
-    },
-    {
-      id: "bhqecj4p",
-      amount: 721,
-      status: "failed",
-      email: "carmella@hotmail.com",
-      items: [
-        { "productId": "p13", "name": "Product 13", "quantity": 1, "price": 300 },
-        { "productId": "p14", "name": "Product 14", "quantity": 2, "price": 200 },
-        { "productId": "p15", "name": "Product 15", "quantity": 3, "price": 73 }
-      ]
-
-    },
-    {
-      id: "bhqecj4p",
-      amount: 721,
-      status: "failed",
-      email: "carmella@hotmail.com",
-      items: [
-      { "productId": "p13", "name": "Product 13", "quantity": 1, "price": 300 },
-      { "productId": "p14", "name": "Product 14", "quantity": 2, "price": 200 },
-      { "productId": "p15", "name": "Product 15", "quantity": 3, "price": 73 }
-    ]
-
-    },
-    {
-      id: "bhqecj4p",
-      amount: 721,
-      status: "failed",
-      email: "carmella@hotmail.com",
-      items: [
-      { "productId": "p13", "name": "Product 13", "quantity": 1, "price": 300 },
-      { "productId": "p14", "name": "Product 14", "quantity": 2, "price": 200 },
-      { "productId": "p15", "name": "Product 15", "quantity": 3, "price": 73 }
-    ]
-
-    },
-    {
-      id: "bhqecj4p",
-      amount: 721,
-      status: "failed",
-      email: "carmella@hotmail.com",
-      items: [
-      { "productId": "p13", "name": "Product 13", "quantity": 1, "price": 300 },
-      { "productId": "p14", "name": "Product 14", "quantity": 2, "price": 200 },
-      { "productId": "p15", "name": "Product 15", "quantity": 3, "price": 73 }
-    ]
-
-    },
-    {
-      id: "bhqecj4p",
-      amount: 721,
-      status: "failed",
-      email: "carmella@hotmail.com",
-      items: [
-      { "productId": "p13", "name": "Product 13", "quantity": 1, "price": 300 },
-      { "productId": "p14", "name": "Product 14", "quantity": 2, "price": 200 },
-      { "productId": "p15", "name": "Product 15", "quantity": 3, "price": 73 }
-    ]
-
-    },
-    {
-      id: "bhqecj4p",
-      amount: 721,
-      status: "failed",
-      email: "carmella@hotmail.com",
-      items: [
-      { "productId": "p13", "name": "Product 13", "quantity": 1, "price": 300 },
-      { "productId": "p14", "name": "Product 14", "quantity": 2, "price": 200 },
-      { "productId": "p15", "name": "Product 15", "quantity": 3, "price": 73 }
-    ]
-
-    },
-    {
-      id: "bhqecj4p",
-      amount: 721,
-      status: "failed",
-      email: "carmella@hotmail.com",
-      items: [
-      { "productId": "p13", "name": "Product 13", "quantity": 1, "price": 300 },
-      { "productId": "p14", "name": "Product 14", "quantity": 2, "price": 200 },
-      { "productId": "p15", "name": "Product 15", "quantity": 3, "price": 73 }
-    ]
-
-    },
-    {
-      id: "bhqecj4p",
-      amount: 721,
-      status: "failed",
-      email: "carmella@hotmail.com",
-      items: [
-      { "productId": "p13", "name": "Product 13", "quantity": 1, "price": 300 },
-      { "productId": "p14", "name": "Product 14", "quantity": 2, "price": 200 },
-      { "productId": "p15", "name": "Product 15", "quantity": 3, "price": 73 }
-    ]
-
-    },
-    {
-      id: "bhqecj4p",
-      amount: 721,
-      status: "failed",
-      email: "carmella@hotmail.com",
-      items: [
-      { "productId": "p13", "name": "Product 13", "quantity": 1, "price": 300 },
-      { "productId": "p14", "name": "Product 14", "quantity": 2, "price": 200 },
-      { "productId": "p15", "name": "Product 15", "quantity": 3, "price": 73 }
-    ]
-
-    },
-    {
-      id: "bhqecj4p",
-      amount: 721,
-      status: "failed",
-      email: "carmella@hotmail.com",
-      items: [
-      { "productId": "p13", "name": "Product 13", "quantity": 1, "price": 300 },
-      { "productId": "p14", "name": "Product 14", "quantity": 2, "price": 200 },
-      { "productId": "p15", "name": "Product 15", "quantity": 3, "price": 73 }
-    ]
-
+      AmazonOrderId: "weds87829",
+      PurchaseDate: new Date(),
+      OrderStatus: "success",
+      NumberOfItemsShipped: 323,
+      MarketplaceId: "AQAW45DERFER",
     },
   ]
+
+  const items: OrderItem[] = [
+    { OrderItemId: 1, AmazonOrderId: "m5gr84i9", ASIN: "B07PGL2ZSL", Title: "Product 1", QuantityOrdered: 1, ItemPrice: 100 },
+    { OrderItemId: 2, AmazonOrderId: "ff5graSGt65", ASIN: "B07PGL2ZSL", Title: "Product 2", QuantityOrdered: 2, ItemPrice: 50 },
+    { OrderItemId: 3, AmazonOrderId: "weds87829", ASIN: "B07PGL2ZSL", Title: "Product 3", QuantityOrdered: 3, ItemPrice: 22 },
+  ]
+
+  return { orders, items }
 }
 
 export default async function OrdersPage() {
-  const data = await getData()
+  const { orders, items } = await getData()
+  // const { items } = await getData()
+
+  const data = orders.map(order => ({
+    ...order,
+    Items: items.filter(item => item.AmazonOrderId === order.AmazonOrderId),
+  }));
 
   return (
     <>
