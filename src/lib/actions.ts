@@ -27,11 +27,32 @@ export async function deleteSupplier(id: string) {
 
 export async function updateSupplier(id: string, newName: string) {
   try {
-    axiosInstanceServer.put(`${process.env.NEXT_PUBLIC_BACKEND_URL}/Supplier/${id}`, {
-      description: newName,
-    });
+    await axiosInstanceServer.put(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/Supplier/${id}`,
+      {
+        description: newName,
+      },
+    );
   } catch (error) {
     console.log(error);
   }
   revalidatePath('/dashboard/suppliers');
+}
+
+export async function changePassword(oldPassword: string, newPassword: string) {
+  try {
+    const result = await axiosInstanceServer.patch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/Authentication/Change-Password`,
+      {
+        newPassword,
+        oldPassword,
+      },
+    );
+
+    if (result.status !== 200) {
+      throw new Error('Error changing password');
+    }
+  } catch (error) {
+    console.log(error);
+  }
 }

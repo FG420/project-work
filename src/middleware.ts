@@ -21,7 +21,6 @@ export async function middleware(req: NextRequest) {
 
   try {
     const verify = await jose.jwtVerify(token, jwtConfig.secret);
-    console.log(verify);
   } catch (error) {}
 
   return NextResponse.next();
