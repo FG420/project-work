@@ -27,8 +27,6 @@ import { Input } from "../ui/input";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  columns: ColumnDef<TData, TValue>[];
-  data: TData[];
 }
 
 export function DataOrderTable<TData, TValue>({ columns, data }: DataTableProps<Order, any>) {
