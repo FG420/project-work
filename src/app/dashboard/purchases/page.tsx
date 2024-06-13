@@ -1,9 +1,7 @@
 'use client';
 
-import { purchases } from '@/lib/purchases';
 import { DataTable } from './data-table';
 import { columns } from './columns';
-// import { Purchase } from '@/lib/interfaces';
 import { Purchase } from '@/lib/types';
 import { Input } from '@/components/ui/input';
 import { InputDataComponent } from '@/components/input-data';
