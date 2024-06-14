@@ -4,12 +4,17 @@ export type CategoryNames =
   | 'Caffè Tè e bevande'
   | 'Cartucce per stampanti';
 
+export type Category = {
+  categoryID: string;
+  description: CategoryNames;
+};
+
 export type Item = {
   asin: string;
   title: string;
   stock: number;
   categoryID: string;
-  categoryName: CategoryNames;
+  category: Category;
 };
 
 export type Supplier = {
@@ -23,8 +28,8 @@ export type Purchase = {
   purchaseDate: Date | string | number;
   // recipeDate: Date;
   recipeNumber: string;
-  isLoaded: boolean
-}
+  isLoaded: boolean;
+};
 
 export type PurchasedItem = {
   purchasedItemID: string;
@@ -32,7 +37,7 @@ export type PurchasedItem = {
   asin: string;
   quantity: number;
   price: number;
-}
+};
 
 export type User = {
   userID: string;

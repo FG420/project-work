@@ -56,3 +56,17 @@ export async function changePassword(oldPassword: string, newPassword: string) {
     console.log(error);
   }
 }
+
+// TODO: To test
+export async function updateItemStock(asin: string, stock: number) {
+  try {
+    await axiosInstanceServer.patch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/Item/${asin}`,
+      {
+        stock,
+      },
+    );
+  } catch (error) {
+    console.log(error);
+  }
+}

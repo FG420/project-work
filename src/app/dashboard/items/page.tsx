@@ -34,8 +34,6 @@ export default function Items() {
   }, []);
 
   function clickItem(item: Item) {
-    console.log(item);
-
     router.push(`/dashboard/items/${item.asin}`);
   }
 
@@ -43,15 +41,7 @@ export default function Items() {
     <>
       <h2 className="text-2xl">Items Inventory</h2>
 
-      <div
-        className="items-container"
-        style={{
-          display: 'flex',
-          gap: '2rem',
-          flexWrap: 'wrap',
-          justifyContent: 'space-between',
-        }}
-      >
+      <div className="items-container flex flex-wrap justify-stretch gap-4">
         {items.map((item) => (
           <Card
             style={{
@@ -74,7 +64,7 @@ export default function Items() {
               <p className="font-semibold">{trimTitle(item.title)}</p>
               <p>ASIN: {item.asin}</p>
               <p>Giacenza: {item.stock}</p>
-              <p>Categoria: {item.categoryName}</p>
+              <p>Categoria: {item.category.description}</p>
             </span>
           </Card>
         ))}
