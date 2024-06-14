@@ -20,6 +20,7 @@ import { LogOut, User } from 'lucide-react';
 import { ChangePassComponent } from './changepass';
 import { useRouter } from 'next/navigation';
 import { removeTokenCookie } from '@/lib/cookies';
+import { Icon } from '@iconify/react';
 
 export const Header = () => {
   const [open, setOpen] = useState(false);
@@ -72,11 +73,16 @@ export const Header = () => {
         </div>
 
         <div className="hidden md:block">
-          <div className="h-8 w-8 rounded-full bg-zinc-300 flex items-center justify-center text-center">
+          <div className="h-8 w-8 rounded-full flex items-center justify-center text-center">
             <Dialog open={open} onOpenChange={setOpen}>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <span className="font-semibold text-sm hover:cursor-pointer">HQ</span>
+                  <Icon
+                    className="hover:cursor-pointer"
+                    icon="material-symbols:settings"
+                    width="24"
+                    height="24"
+                  />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56">
                   <DropdownMenuLabel>My Account</DropdownMenuLabel>

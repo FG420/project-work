@@ -44,27 +44,24 @@ export default function Items() {
       <div className="items-container flex flex-wrap justify-stretch gap-4">
         {items.map((item) => (
           <Card
+            className="flex p-4 gap-3 cursor-pointer"
             style={{
-              padding: '1rem',
-              width: '340px',
-              cursor: 'pointer',
-              display: 'flex',
-              gap: '10px',
+              width: '400px',
             }}
             key={item.asin}
             onClick={() => clickItem(item)}
           >
             <Image
               src={`/images/${item.asin}/Image1.jpg`}
-              width={64}
-              height={64}
+              width={85}
+              height={85}
               alt="Item Image"
             />
             <span>
               <p className="font-semibold">{trimTitle(item.title)}</p>
-              <p>ASIN: {item.asin}</p>
               <p>Giacenza: {item.stock}</p>
               <p>Categoria: {item.category.description}</p>
+              <p className="text-sm opacity-75">ASIN: {item.asin}</p>
             </span>
           </Card>
         ))}
