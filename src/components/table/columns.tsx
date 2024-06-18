@@ -5,36 +5,36 @@ import { Button } from "@/components/ui/button";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import OrderItems from "@/components/table/order-items";
 import { ChevronDown } from 'lucide-react';
-import { Order, OrderItem } from "@/lib/interfaces";
+import { Order, OrderItem } from "@/lib/types";
 
-interface OrderWithItems extends Order {
+/* interface OrderWithItems extends Order {
   Items: OrderItem[];
-}
+} */
 
 export const columns: ColumnDef<Order>[] = [
 
   {
-    accessorKey: "AmazonOrderId",
+    accessorKey: "amazonOrderID",
     header: "ID Amazon",
   },
   {
-    accessorKey: "PurchaseDate",
+    accessorKey: "purchaseDate",
     header: "Purchase Date",
     cell: ({ row }) => {
-      const date = new Date(row.getValue("PurchaseDate"));
+      const date = new Date(row.getValue("purchaseDate"));
       return date.toLocaleDateString("it-IT");
     },
   },
   {
-    accessorKey: "OrderStatus",
+    accessorKey: "orderStatus",
     header: "Order Status",
   },
   {
-    accessorKey: "NumberOfItemsShipped",
+    accessorKey: "numberOfItemsShipped",
     header: "N. Items Shipped",
   },
   {
-    accessorKey: "MarketplaceId",
+    accessorKey: "marketplaceID",
     header: "Marketplace Id",
   },
   {
@@ -53,7 +53,7 @@ export const columns: ColumnDef<Order>[] = [
             </CollapsibleTrigger>
             <CollapsibleContent asChild>
               <div className="px-4 pb-4">
-                <OrderItems items={order.Items} />
+                <OrderItems items={order.orderItems} />
               </div>
             </CollapsibleContent>
           </>

@@ -1,4 +1,5 @@
 "use client"
+
 import { Button } from "@/components/ui/button";
 import {
   ColumnDef,
@@ -20,9 +21,9 @@ import {
 } from "@/components/ui/table";
 import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
 import OrderItems from "@/components/table/order-items";
-import { Order, OrderItem } from "@/lib/interfaces";
 import React from "react";
 import { Input } from "../ui/input";
+import { Order } from "@/lib/types";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -49,9 +50,9 @@ export function DataOrderTable<TData, TValue>({ columns, data }: DataTableProps<
       <div className="flex items-center py-4">
         <Input
           placeholder="Filter ID"
-          value={(table.getColumn("AmazonOrderId")?.getFilterValue() as string) ?? ""}
+          value={(table.getColumn("amazonOrderID")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("AmazonOrderId")?.setFilterValue(event.target.value)
+            table.getColumn("amazonOrderID")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
@@ -84,7 +85,7 @@ export function DataOrderTable<TData, TValue>({ columns, data }: DataTableProps<
                     <CollapsibleContent asChild>
                       <TableRow>
                         <TableCell colSpan={columns.length}>
-                          <OrderItems items={row.original.Items} />
+                          <OrderItems items={row.original.orderItems} />
                         </TableCell>
                       </TableRow>
                     </CollapsibleContent>
