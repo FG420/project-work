@@ -1,3 +1,4 @@
+import DeleteItem from '@/components/delete-item';
 import {
   Carousel,
   CarouselContent,
@@ -23,7 +24,7 @@ export default async function ItemPage({ params }: any) {
   const images: string[] = getImages(asin);
 
   return (
-    <div className="flex" style={{ height: '90vh', border: '1px solid black' }}>
+    <div className="flex" style={{ height: '90vh' }}>
       <div className="mt-6">
         {images.length > 0 ? (
           <Carousel
@@ -56,7 +57,13 @@ export default async function ItemPage({ params }: any) {
           {item.category.description} | ASIN: {item.asin}
         </p>
         <p className="mt-1">Stock: {item.stock}</p>
-        <UpdateStock asin={asin} stock={item.stock} />
+
+        <hr />
+
+        <div className="flex gap-3 mt-4">
+          <UpdateStock asin={asin} stock={item.stock} />
+          <DeleteItem asin={asin} />
+        </div>
       </div>
     </div>
   );

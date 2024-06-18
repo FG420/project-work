@@ -88,3 +88,16 @@ export async function addItem(
   }
   revalidatePath('/dashboard/items');
 }
+
+export async function deleteItem(asin: string) {
+  try {
+    await axiosInstanceServer.delete(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/Item/${asin}`,
+    );
+  } catch (error) {
+    console.log(error);
+  }
+
+  revalidatePath('/dashboard/items');
+  redirect('/dashboard/items');
+}
