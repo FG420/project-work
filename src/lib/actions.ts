@@ -2,6 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 import axiosInstanceServer from './axios-server';
+import { redirect } from 'next/navigation';
 
 export async function createSupplier(name: string) {
   try {
@@ -57,16 +58,14 @@ export async function changePassword(oldPassword: string, newPassword: string) {
   }
 }
 
-// TODO: To test
 export async function updateItemStock(asin: string, stock: number) {
   try {
-    await axiosInstanceServer.patch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/Item/${asin}`,
-      {
-        stock,
-      },
-    );
+    await axiosInstanceServer.put(`${process.env.NEXT_PUBLIC_BACKEND_URL}/Item/${asin}`, {
+      stock,
+    });
   } catch (error) {
     console.log(error);
   }
+
+  redirect(`/dashboard/items/`);
 }

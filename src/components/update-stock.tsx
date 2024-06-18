@@ -8,15 +8,15 @@ import { Button } from './ui/button';
 
 type UpdateStockProps = {
   asin: string;
+  stock: number;
 };
 
-export default function UpdateStock({ asin }: UpdateStockProps) {
-  const [newStock, setNewStock] = useState<string>('');
+export default function UpdateStock({ asin, stock }: UpdateStockProps) {
+  const [newStock, setNewStock] = useState<string>(stock.toString());
 
   const updateStock = async () => {
-    console.log('New Stock', newStock);
-    // const stock = parseInt(newStock);
-    // await updateItemStock(asin, stock);
+    const stock = parseInt(newStock);
+    await updateItemStock(asin, stock);
   };
 
   return (

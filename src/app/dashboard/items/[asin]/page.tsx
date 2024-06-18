@@ -56,7 +56,7 @@ export default async function ItemPage({ params }: any) {
           {item.category.description} | ASIN: {item.asin}
         </p>
         <p className="mt-1">Stock: {item.stock}</p>
-        <UpdateStock asin={asin} />
+        <UpdateStock asin={asin} stock={item.stock} />
       </div>
     </div>
   );
