@@ -19,7 +19,7 @@ export default function OrderItems({ items }: {items: OrderItem[]}) {
             <DrawerTitle>Order Items</DrawerTitle>
             <DrawerDescription>List of items in the order</DrawerDescription>
           </DrawerHeader>
-          <div className="p-4 h-80 overflow-y-auto" >
+          <div className="p-4">
             {items && items.length > 0 ? (
               items.map((item) => (
                 <div key={item.orderItemID} className="border-b pb-2 mb-2">
