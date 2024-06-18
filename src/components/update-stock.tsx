@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import axiosInstanceClient from '@/lib/axios-client';
 import { updateItemStock } from '@/lib/actions';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
@@ -20,7 +19,7 @@ export default function UpdateStock({ asin, stock }: UpdateStockProps) {
   };
 
   return (
-    <div className="flex gap-5 mt-4">
+    <div className="flex gap-5">
       <Input
         type="number"
         min={0}

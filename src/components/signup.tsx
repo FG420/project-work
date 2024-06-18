@@ -11,13 +11,13 @@ import {
 } from '@/components/ui/form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import passvalidation from '@/app/pass-validation';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { useState } from 'react';
 import axios from 'axios';
 import { toast } from './ui/use-toast';
 import { ToastAction } from './ui/toast';
 import Link from 'next/link';
+import passvalidation from '@/lib/pass-validation';
 
 const formSchema = z
   .object({
@@ -63,15 +63,14 @@ export default function SignUpPage() {
 
         const emailObj = {
           email: values.email,
-          mode: 'signup'
+          mode: 'signup',
         };
-
 
         console.log(res.data);
         // if (res.status === 200) {
 
         // }
-        const confirmSignup = await axios.post('/api/signup-confirm', emailObj)
+        const confirmSignup = await axios.post('/api/signup-confirm', emailObj);
         toast({
           title: 'Registration Success !',
           description: 'Press the button to go to Sign In page!',
