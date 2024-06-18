@@ -8,7 +8,6 @@ const jwtConfig = {
   secret: new TextEncoder().encode(process.env.NEXT_PUBLIC_JWT_SECRET),
 };
 
-// This function can be marked `async` if using `await` inside
 export async function middleware(req: NextRequest) {
   const token = req.cookies.get('token')?.value || '';
 
@@ -22,7 +21,6 @@ export async function middleware(req: NextRequest) {
 
   try {
     const verify = await jose.jwtVerify(token, jwtConfig.secret);
-    console.log(verify);
   } catch (error) {}
 
   return NextResponse.next();

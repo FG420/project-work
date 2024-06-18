@@ -61,18 +61,26 @@ export default function SignUpPage() {
           values,
         );
 
+        const emailObj = {
+          email: values.email,
+          mode: 'signup'
+        };
+
+
         console.log(res.data);
-        if (res.status === 200) {
-          toast({
-            title: 'Registration Success !',
-            description: 'Press the button to go to Sign In page!',
-            action: (
-              <ToastAction altText="Registration message" className="p-4">
-                <Link href={'/signin'}>Go to Sign In</Link>
-              </ToastAction>
-            ),
-          });
-        }
+        // if (res.status === 200) {
+
+        // }
+        const confirmSignup = await axios.post('/api/signup-confirm', emailObj)
+        toast({
+          title: 'Registration Success !',
+          description: 'Press the button to go to Sign In page!',
+          action: (
+            <ToastAction altText="Registration message" className="p-4">
+              <Link href={'/signin'}>Go to Sign In</Link>
+            </ToastAction>
+          ),
+        });
       } catch (error: any) {
         toast({
           title: 'Ops, Something went Wrong!',

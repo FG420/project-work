@@ -1,22 +1,9 @@
 'use client';
 
 import { ColumnDef } from '@tanstack/react-table';
-import { Purchase } from '@/lib/interfaces';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+// import { Purchase } from '@/lib/interfaces';
+import { Purchase } from '@/lib/types';
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -25,7 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Input } from '@/components/ui/input';
+
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -42,20 +29,24 @@ const formSchema = z.object({
 
 export const columns: ColumnDef<Purchase>[] = [
   {
-    accessorKey: 'PurchaseID',
+    accessorKey: 'purchaseID',
     header: 'ID',
   },
   {
-    accessorKey: 'SupplierID',
+    accessorKey: 'supplierID',
     header: 'Supplier ID',
   },
   {
-    accessorKey: 'RecipeDate',
+    accessorKey: 'purchaseDate',
     header: 'Date of Purchase',
   },
   {
-    accessorKey: 'RecipeNumber',
+    accessorKey: 'recipeNumber',
     header: 'Recipe',
+  },
+  {
+    accessorKey: 'isLoaded',
+    header: 'Loaded'
   },
   {
     id: 'actions',
@@ -83,7 +74,7 @@ export const columns: ColumnDef<Purchase>[] = [
       // Delete function working using the row supplier.id for verificatiion!
       const deletePurchase = () => {
         // API call for purchase deletion
-        console.log(purchase.PurchaseID);
+        console.log(purchase.purchaseID);
       };
 
       return (
@@ -98,7 +89,7 @@ export const columns: ColumnDef<Purchase>[] = [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-              <Link href={`/dashboard/purchases/${purchase.PurchaseID}`}>View Items</Link>
+              <Link href={`/dashboard/purchases/${purchase.purchaseID}`}>View Items</Link>
             </DropdownMenuItem>
             {/* <Dialog>
                             <DialogTrigger asChild>

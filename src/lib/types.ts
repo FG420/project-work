@@ -4,17 +4,39 @@ export type CategoryNames =
   | 'Caffè Tè e bevande'
   | 'Cartucce per stampanti';
 
+export type Category = {
+  categoryID: string;
+  description: CategoryNames;
+};
+
 export type Item = {
   asin: string;
   title: string;
   stock: number;
   categoryID: string;
-  categoryName: CategoryNames;
+  category: Category;
 };
 
 export type Supplier = {
   supplierID: string;
   description: string;
+};
+
+export type Purchase = {
+  purchaseID: string;
+  supplierID: string;
+  purchaseDate: Date | string | number;
+  // recipeDate: Date;
+  recipeNumber: string;
+  isLoaded: boolean;
+};
+
+export type PurchasedItem = {
+  purchasedItemID: string;
+  purchaseID: string;
+  asin: string;
+  quantity: number;
+  price: number;
 };
 
 export type User = {

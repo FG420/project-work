@@ -17,6 +17,7 @@ import { ToastAction } from './ui/toast';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { setTokenCookie } from '@/lib/cookies';
+import { useEffect } from 'react';
 
 const formSchema = z.object({
   email: z.string().min(6, { message: 'Must have at least 5 character' }).email({
@@ -33,15 +34,6 @@ const formSchema = z.object({
 export default function LoginComponent() {
   const router = useRouter();
 
-  const timer = setTimeout(() => {
-    toast({
-      title: 'Form Resetting!',
-      description: '30 Seconds passed, from resetting!',
-      action: <ToastAction altText="Form resetting toast">Close</ToastAction>,
-    });
-    form.reset();
-  }, 30000);
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -50,6 +42,19 @@ export default function LoginComponent() {
     },
   });
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      toast({
+        title: 'Form Resetting!',
+        description: '30 Seconds passed, from resetting!',
+        action: <ToastAction altText="Form resetting toast">Close</ToastAction>,
+      });
+      form.reset();
+    }, 30000);
+
+    return () => clearTimeout(timer);
+  }, [form]);
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       const res = await axios.post(
@@ -57,7 +62,6 @@ export default function LoginComponent() {
         values,
       );
 
-      console.log(res.data);
       if (res.status === 200) {
         setTokenCookie(res.data);
         router.push('/dashboard');

@@ -39,7 +39,7 @@ function ForgotPass() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       const res = await axios.patch(
-        process.env.NEXT_PUBLIC_BACKEND_URL! + '/Authentication/Forgot-Password',
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/Authentication/Forgot-Password`,
         values,
       );
 
@@ -48,6 +48,7 @@ function ForgotPass() {
       const emailObj = {
         email: values.email,
         password: genPass,
+        mode: 'forgotpass'
       };
 
       const emailSent = await axios.post('/api/forgotpass', emailObj);
