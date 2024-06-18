@@ -7,10 +7,6 @@ import OrderItems from "@/components/table/order-items";
 import { ChevronDown } from 'lucide-react';
 import { Order, OrderItem } from "@/lib/types";
 
-/* interface OrderWithItems extends Order {
-  Items: OrderItem[];
-} */
-
 export const columns: ColumnDef<Order>[] = [
 
   {
