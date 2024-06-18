@@ -69,3 +69,22 @@ export async function updateItemStock(asin: string, stock: number) {
 
   redirect(`/dashboard/items/`);
 }
+
+export async function addItem(
+  itemName: string,
+  asin: string,
+  stock: number,
+  category: string,
+) {
+  try {
+    await axiosInstanceServer.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/Item`, {
+      asin,
+      title: itemName,
+      stock,
+      categoryID: category,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+  revalidatePath('/dashboard/items');
+}
