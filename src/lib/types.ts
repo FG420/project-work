@@ -62,3 +62,29 @@ export type MenuItemWithSubMenuProps = {
   item: SidebarItem;
   toggleOpen: () => void;
 };
+
+export type Order = {
+  amazonOrderID: string;
+  purchaseDate: Date;
+  orderStatus: string;
+  numberOfItemsShipped: number;
+  marketplaceID: string;
+  marketplace: Marketplace;
+  orderItems: OrderItem[];
+}
+
+export type OrderItem = {
+  orderItemID: string;
+  amazonOrderID: string;
+  asin: string;
+  title: string;
+  quantityOrdered: number;
+  itemPrice: number;
+  item: Item;
+}
+
+export type Marketplace = {
+  marketplaceID: string;
+  marketplaceName: string;
+  countryCode: string;
+}
