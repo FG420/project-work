@@ -4,12 +4,17 @@ export type CategoryNames =
   | 'Caffè Tè e bevande'
   | 'Cartucce per stampanti';
 
+export type Category = {
+  categoryID: string;
+  description: CategoryNames;
+};
+
 export type Item = {
   asin: string;
   title: string;
   stock: number;
   categoryID: string;
-  categoryName: CategoryNames;
+  category: Category;
 };
 
 export type Supplier = {
@@ -23,8 +28,8 @@ export type Purchase = {
   purchaseDate: Date | string | number;
   // recipeDate: Date;
   recipeNumber: string;
-  isLoaded: boolean
-}
+  isLoaded: boolean;
+};
 
 export type PurchasedItem = {
   purchasedItemID: string;
@@ -58,3 +63,29 @@ export type MenuItemWithSubMenuProps = {
   item: SidebarItem;
   toggleOpen: () => void;
 };
+
+export type Order = {
+  amazonOrderID: string;
+  purchaseDate: Date;
+  orderStatus: string;
+  numberOfItemsShipped: number;
+  marketplaceID: string;
+  marketplace: Marketplace;
+  orderItems: OrderItem[];
+}
+
+export type OrderItem = {
+  orderItemID: string;
+  amazonOrderID: string;
+  asin: string;
+  title: string;
+  quantityOrdered: number;
+  itemPrice: number;
+  item: Item;
+}
+
+export type Marketplace = {
+  marketplaceID: string;
+  marketplaceName: string;
+  countryCode: string;
+}

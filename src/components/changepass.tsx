@@ -3,19 +3,20 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-
 import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import passvalidation from '@/app/pass-validation';
+import { toast } from './ui/use-toast';
+import { changePassword } from '@/lib/actions';
+import { removeTokenCookie } from '@/lib/cookies';
+import { useRouter } from 'next/navigation';
+import passvalidation from '@/lib/pass-validation';
 
 const formSchema = z
   .object({
@@ -32,13 +33,12 @@ const formSchema = z
     path: ['oldpassword'],
   });
 
-const changePassword = {
-  newpassword: 'Password1234!',
-  oldpassword: 'Password123!',
+type ChangePassProps = {
+  onClickBtn: () => void;
 };
 
-export function ChangePassComponent({ onClickBtn }) {
-  // ...
+export function ChangePassComponent({ onClickBtn }: ChangePassProps) {
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -50,19 +50,24 @@ export function ChangePassComponent({ onClickBtn }) {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      if (
-        values.newpassword === changePassword.newpassword &&
-        values.oldpassword === changePassword.oldpassword
-      ) {
-        console.log('ok!');
-      } else {
-        console.log('not ok');
-      }
+      const { newpassword, oldpassword } = values;
 
-      //! Chiudere Dialog
+      await changePassword(oldpassword, newpassword);
+
       onClickBtn();
-      console.log(values);
-    } catch (error: any) {}
+
+      toast({
+        title: 'Password Changed Successfully ✅',
+        description: 'Your password has been changed successfully',
+      });
+      removeTokenCookie();
+      router.push('/signin');
+    } catch (error: any) {
+      toast({
+        title: 'Password Change Fail ❌',
+        description: 'There was an error changing your password, please try again.',
+      });
+    }
   }
 
   return (

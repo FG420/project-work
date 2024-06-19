@@ -1,50 +1,30 @@
 'use client';
 
-import React, { useState } from 'react';
-
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useSelectedLayoutSegment } from 'next/navigation';
-
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
-
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from '@/components/ui/hover-card';
-
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import useScroll from '@/hooks/use-scroll';
 import { cn } from '@/lib/utils';
 import axios from 'axios';
 import { LogOut, User } from 'lucide-react';
-import { Button } from './ui/button';
 import { ChangePassComponent } from './changepass';
+import { useRouter } from 'next/navigation';
+import { removeTokenCookie } from '@/lib/cookies';
+import { Icon } from '@iconify/react';
 
 export const Header = () => {
   const [open, setOpen] = useState(false);
+  const router = useRouter();
 
   const getUserData = async () => {
     try {
@@ -58,6 +38,17 @@ export const Header = () => {
     setOpen(false);
   }
 
+  useEffect(() => {
+    if (!document.cookie) {
+      router.push('/signin');
+    }
+  }, []);
+
+  function handleLogout() {
+    removeTokenCookie();
+    router.push('/signin');
+  }
+
   const scrolled = useScroll(5);
   const selectedLayout = useSelectedLayoutSegment();
   return (
@@ -65,7 +56,7 @@ export const Header = () => {
       className={cn(
         `sticky inset-x-0 top-0 z-30 w-full transition-all border-b border-gray-200`,
         {
-          'border-b border-gray-200 bg-white/75 backdrop-blur-lg': scrolled,
+          'border-b border-gray-200 backdrop-blur-lg': scrolled,
           'border-b border-gray-200': selectedLayout,
         },
       )}
@@ -77,16 +68,21 @@ export const Header = () => {
             className="flex flex-row space-x-3 items-center justify-center md:hidden"
           >
             <span className="h-7 w-7 bg-zinc-300 rounded-lg" />
-            <span className="font-bold text-xl flex ">Logo</span>
+            <span className="font-bold text-xl flex ">Warehouse</span>
           </Link>
         </div>
 
         <div className="hidden md:block">
-          <div className="h-8 w-8 rounded-full bg-zinc-300 flex items-center justify-center text-center">
+          <div className="h-8 w-8 rounded-full flex items-center justify-center text-center">
             <Dialog open={open} onOpenChange={setOpen}>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <span className="font-semibold text-sm hover:cursor-pointer">HQ</span>
+                  <Icon
+                    className="hover:cursor-pointer"
+                    icon="material-symbols:settings"
+                    width="24"
+                    height="24"
+                  />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56">
                   <DropdownMenuLabel>My Account</DropdownMenuLabel>
@@ -105,9 +101,9 @@ export const Header = () => {
                     </DropdownMenuItem>
                   </DropdownMenuGroup>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>
+                  <DropdownMenuItem onClick={handleLogout} style={{ cursor: 'pointer' }}>
                     <LogOut className="mr-2 h-4 w-4" />
-                    <Link href={'/signin'}>Log out</Link>
+                    <div>Log out</div>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
