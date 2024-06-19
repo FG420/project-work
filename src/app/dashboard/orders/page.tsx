@@ -3,7 +3,7 @@ import { DataOrderTable } from "../../../components/table/order-data-table"
 import axiosInstanceServer from "@/lib/axios-server";
 import { Order, OrderItem } from "@/lib/types";
 
-async function getData(): Promise<{ orders: Order[]; items: OrderItem[] }> {
+async function getData()/* : Promise<{ orders: Order[]; items: OrderItem[] }> */ {
 
   const res = await axiosInstanceServer.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/Order`)
 
