@@ -19,8 +19,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
-import OrderItems from "@/components/table/order-items";
 import React from "react";
 import { Input } from "../ui/input";
 import { Order } from "@/lib/types";
@@ -73,24 +71,13 @@ export function DataOrderTable<TData, TValue>({ columns, data }: DataTableProps<
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <Collapsible key={row.id} asChild>
-                  <>
-                    <TableRow data-state={row.getIsSelected() && "selected"}>
-                      {row.getVisibleCells().map((cell) => (
-                        <TableCell key={cell.id}>
-                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                        </TableCell>
-                      ))}
-                    </TableRow>
-                    <CollapsibleContent asChild>
-                      <TableRow>
-                        <TableCell colSpan={columns.length}>
-                          <OrderItems items={row.original.orderItems} />
-                        </TableCell>
-                      </TableRow>
-                    </CollapsibleContent>
-                  </>
-                </Collapsible>
+                <TableRow key={row.id}>
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </TableCell>
+                  ))}
+                </TableRow>
               ))
             ) : (
               <TableRow>
