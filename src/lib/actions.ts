@@ -67,7 +67,8 @@ export async function updateItemStock(asin: string, stock: number) {
     console.log(error);
   }
 
-  redirect(`/dashboard/items/`);
+  revalidatePath('/dashboard/items');
+  redirect(`/dashboard/items`);
 }
 
 export async function addItem(

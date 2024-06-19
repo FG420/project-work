@@ -1,3 +1,3 @@
 export default function HomePage() {
-  return <h1 className="text-3xl">Lorem ipsum dolor sit</h1>;
+  return <h1 className="text-3xl">HomePage</h1>;
 }
