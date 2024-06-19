@@ -18,6 +18,7 @@ import { toast } from './ui/use-toast';
 import { ToastAction } from './ui/toast';
 import Link from 'next/link';
 import passvalidation from '@/lib/pass-validation';
+import VerifyEmailPage from '@/app/verify-email/[id]/page';
 
 const formSchema = z
   .object({
@@ -63,23 +64,26 @@ export default function SignUpPage() {
 
         const emailObj = {
           email: values.email,
+          id: res.data.userID,
           mode: 'signup',
         };
 
-        console.log(res.data);
+        console.log(emailObj.id)
+
         // if (res.status === 200) {
 
         // }
         const confirmSignup = await axios.post('/api/signup-confirm', emailObj);
         toast({
           title: 'Registration Success !',
-          description: 'Press the button to go to Sign In page!',
-          action: (
-            <ToastAction altText="Registration message" className="p-4">
-              <Link href={'/signin'}>Go to Sign In</Link>
-            </ToastAction>
-          ),
+          description: 'Verify your registration now!\nGo to your email and click the link to be verify.',
+          // action: (
+          //   <ToastAction altText="Registration message" className="p-4">
+          //     <Link href={'/signin'}>Go to Sign In</Link>
+          //   </ToastAction>
+          // ),
         });
+        // VerifyEmailPage(emailObj.id)
       } catch (error: any) {
         toast({
           title: 'Ops, Something went Wrong!',
