@@ -24,12 +24,12 @@ export default function OrderItems({ items }: {items: OrderItem[]}) {
       <DrawerContent>
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader>
-            <DrawerTitle>Order Items
+            <DrawerTitle>Prodotti Ordinati
               <span className="ml-5 text-sm font-normal justify-between">
-                 Totale {new Intl.NumberFormat("it-IT", { style: "currency", currency: "EUR" }).format(totalPrice)}
+                 Total {new Intl.NumberFormat("it-IT", { style: "currency", currency: "EUR" }).format(totalPrice)}
               </span>
             </DrawerTitle>
-            <DrawerDescription>Prodotti Ordinati</DrawerDescription>
+            <DrawerDescription></DrawerDescription>
           </DrawerHeader>
           <div className="p-4 h-80 overflow-y-auto">
             {items && items.length > 0 ? (
