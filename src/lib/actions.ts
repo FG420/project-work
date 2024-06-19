@@ -105,3 +105,26 @@ export async function deleteItem(asin: string) {
   revalidatePath('/dashboard/items');
   redirect('/dashboard/items');
 }
+
+export async function deletePurchase(id: string) {
+  try {
+    axiosInstanceServer.delete(`${process.env.NEXT_PUBLIC_BACKEND_URL}/Purchase/${id}`);
+  } catch (error) {
+    console.log(error);
+  }
+  revalidatePath('/dashboard/purchases');
+}
+
+export async function changeLoadedPurchase(id: string) {
+  try {
+    const call = axiosInstanceServer.put(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/Purchase/${id}`,
+      {
+        isLoaded: true,
+      },
+    );
+  } catch (error) {
+    console.log(error);
+  }
+  revalidatePath('/dashboard/purchases');
+}
