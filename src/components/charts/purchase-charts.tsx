@@ -189,7 +189,7 @@ export default function PurchaseChartComponent() {
       {/* <Bar data={data2} height={300} options={options2} /> */}
       {/* <Doughnut data={data3} width={50} height={50} options={options3} /> */}
 
-      <ApexChart type="donut" options={option} series={series} height={200} width={500} />
+      <ApexChart type="line" options={option} series={series} height={200} width={500} />
     </main>
   );
 }

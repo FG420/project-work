@@ -12,7 +12,7 @@ export default function PurchaseAnalysis() {
   return (
     <main>
       ciao mona
+      <PurchaseChartComponent/>;
     </main>
   )
-  // <PurchaseChartComponent/>;
 }
