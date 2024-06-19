@@ -45,7 +45,8 @@ export function DataOrderTable<TData, TValue>({ columns, data }: DataTableProps<
 
   return (
     <div>
-      <div className="flex items-center py-4">
+      <div className="p-2 flex items-center py-4">
+        <div className="p-1">
         <Input
           placeholder="Filter ID"
           value={(table.getColumn("amazonOrderID")?.getFilterValue() as string) ?? ""}
@@ -54,6 +55,17 @@ export function DataOrderTable<TData, TValue>({ columns, data }: DataTableProps<
           }
           className="max-w-sm"
         />
+        </div>
+        <div className="p-1">
+        <Input
+          placeholder="Filter for Status"
+          value={(table.getColumn("orderStatus")?.getFilterValue() as string) ?? ""}
+          onChange={(event) =>
+            table.getColumn("orderStatus")?.setFilterValue(event.target.value)
+          }
+          className="max-w-sm"
+        />
+        </div>
       </div>
       <div className="rounded-md border">
         <Table>
