@@ -1,7 +1,7 @@
 'use client';
 
 import { ColumnDef } from '@tanstack/react-table';
-import { Purchase } from '@/lib/types';
+import { Item, PurchasedItem } from '@/lib/types';
 
 
 import {
@@ -30,32 +30,24 @@ const formSchema = z.object( {
     name: z.string(),
 } );
 
-export const columns: ColumnDef<Purchase>[] = [
+export const columns: ColumnDef<PurchasedItem>[] = [
     {
-        accessorKey: 'purchaseID',
-        header: 'ID',
+        accessorKey: 'item.title',
+        header: 'Title',
     },
     {
-        accessorKey: 'supplierID',
-        header: 'Supplier',
+        accessorKey: 'quantity',
+        header: 'Quantity',
     },
     {
-        accessorKey: 'purchaseDate',
-        header: 'Date of Purchase',
-    },
-    {
-        accessorKey: 'recipeNumber',
-        header: 'Recipe',
-    },
-    {
-        accessorKey: 'isLoaded',
-        header: 'Loaded',
+        accessorKey: 'price',
+        header: 'Unit Price',
     },
     {
         id: 'actions',
         enableHiding: false,
         cell: ( { row } ) => {
-            const purchase = row.original;
+            const purchasedItem = row.original;
 
             const [ open, setOpen ] = useState( false );
 
@@ -66,23 +58,7 @@ export const columns: ColumnDef<Purchase>[] = [
                 },
             } );
 
-            function onSubmit ( values: z.infer<typeof formSchema> ) {
-                // Do something with the form values.
-                // ✅ This will be type-safe and validated.
-                try {
-                    console.log( values );
-                } catch ( error ) {
-                    console.log( error );
-                }
-            }
-
-            const delPurchase = () => {
-                deletePurchase( purchase.purchaseID );
-            };
-
-            const changeLoaded = () => {
-                changeLoadedPurchase( purchase.purchaseID )
-            }
+            
 
             return (
                 <DropdownMenu>
@@ -96,16 +72,7 @@ export const columns: ColumnDef<Purchase>[] = [
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem>
-                            <Link href={ `/dashboard/purchases/${ purchase.purchaseID }` }>View Items</Link>
-                        </DropdownMenuItem>
-                        { purchase.isLoaded === false ? (
-                            <DropdownMenuItem
-                                className="hover:cursor-pointer"
-                                onClick={ changeLoaded }
-                            >Load Purchase</DropdownMenuItem>
-                        ) : null }
-                        <DropdownMenuItem className="hover:cursor-pointer" onClick={ delPurchase }>
-                            Delete Purchase
+                            <Link href={ `/dashboard/items/${ purchasedItem.asin }` }>View Item</Link>
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>

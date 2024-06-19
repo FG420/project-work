@@ -194,7 +194,7 @@ export function DialogComponent ( { buttonName, title }: Prop ) {
                                             <FormItem>
                                                 <FormLabel className="p-2">Recipe</FormLabel>
                                                 <FormControl>
-                                                    <Input placeholder="jrnjgimreg43545" type="text" onChange={ onChange } value={ value } />
+                                                    <Input placeholder="Recipe n˚ " type="text" onChange={ onChange } value={ value } />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -259,7 +259,7 @@ export function DialogComponent ( { buttonName, title }: Prop ) {
                                                 render={ ( props ) => (
                                                     <div className='flex items-center p-3 '>
                                                         <FormLabel className='p-3'>
-                                                            Price:
+                                                            Unit Price:
                                                         </FormLabel>
                                                         <Input
                                                             className='w-16 p-2 text-right'

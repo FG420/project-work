@@ -32,6 +32,7 @@ export type PurchasedItem = {
   asin: string;
   quantity: number;
   price: number;
+  item: Item
 }
 
 export type User = {
