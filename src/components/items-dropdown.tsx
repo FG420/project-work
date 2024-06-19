@@ -9,12 +9,15 @@ import {
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
 import { Button } from './ui/button';
+import AddItemDialog from './add-item-dialog';
+import { Item } from '@/lib/types';
 
 type ItemsDropdownProps = {
   onFilterChange: (value: string) => void;
+  items: Item[];
 };
 
-export default function ItemsDropdown({ onFilterChange }: ItemsDropdownProps) {
+export default function ItemsDropdown({ onFilterChange, items }: ItemsDropdownProps) {
   const [filter, setFilter] = useState<string>('All');
 
   function changeFilterValue(value: string) {
@@ -23,7 +26,7 @@ export default function ItemsDropdown({ onFilterChange }: ItemsDropdownProps) {
   }
 
   return (
-    <>
+    <div className="flex justify-between">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant={'outline'}>Filter</Button>
@@ -46,6 +49,8 @@ export default function ItemsDropdown({ onFilterChange }: ItemsDropdownProps) {
           </DropdownMenuRadioGroup>
         </DropdownMenuContent>
       </DropdownMenu>
-    </>
+
+      <AddItemDialog buttonName={'New Item'} title={'Create a new item'} items={items} />
+    </div>
   );
 }

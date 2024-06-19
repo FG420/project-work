@@ -11,13 +11,13 @@ import {
 
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import passvalidation from '@/app/pass-validation';
 import { toast } from './ui/use-toast';
 import { ToastAction } from './ui/toast';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { setTokenCookie } from '@/lib/cookies';
 import { useEffect } from 'react';
+import passvalidation from '@/lib/pass-validation';
 
 const formSchema = z.object({
   email: z.string().min(6, { message: 'Must have at least 5 character' }).email({

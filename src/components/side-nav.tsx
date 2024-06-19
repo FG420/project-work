@@ -27,7 +27,9 @@ export const SideNav = () => {
             return <MenuItem key={idx} item={item} />;
           })}
         </div>
-        <ModeToggle></ModeToggle>
+        <div className="flex justify-center">
+          <ModeToggle />
+        </div>
       </div>
     </div>
   );
@@ -47,7 +49,7 @@ const MenuItem = ({ item }: { item: SidebarItem }) => {
           <button
             onClick={toggleSubMenu}
             className={`flex flex-row items-center p-2 rounded-lg w-full justify-between ${
-              pathname.includes(item.path) ? 'border-2 border-sky-500' : ''
+              pathname.includes(item.path) ? 'border-l border-r border-zinc-500' : ''
             }`}
           >
             <div className="flex flex-row space-x-4 items-center">
@@ -80,7 +82,7 @@ const MenuItem = ({ item }: { item: SidebarItem }) => {
         <Link
           href={item.path}
           className={`flex flex-row space-x-4 items-center p-2 rounded-lg ${
-            item.path === pathname ? 'border border-sky-500' : ''
+            item.path === pathname ? 'border-l border-r border-zinc-500' : ''
           }`}
         >
           {item.icon}

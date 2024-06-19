@@ -37,7 +37,7 @@ export default function Items() {
     <div>
       <h2 className="text-2xl mb-4">Items Inventory</h2>
 
-      <ItemsDropdown onFilterChange={setFilter} />
+      <ItemsDropdown onFilterChange={setFilter} items={items} />
 
       <div className="items-container flex flex-wrap justify-stretch gap-4 mt-5">
         {items
