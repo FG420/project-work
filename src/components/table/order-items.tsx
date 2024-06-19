@@ -2,7 +2,7 @@
 
 import { OrderItem } from "@/lib/types"
 import { ChevronDown } from "lucide-react";
-import { Button } from "react-day-picker";
+import { Button } from "@/components/ui/button"
 import { Drawer, DrawerTrigger, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription, DrawerFooter, DrawerClose } from "../ui/drawer";
 
 export default function OrderItems({ items }: {items: OrderItem[]}) {
