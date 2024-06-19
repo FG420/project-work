@@ -2,6 +2,9 @@
 
 import { revalidatePath } from 'next/cache';
 import axiosInstanceServer from './axios-server';
+import { Purchase } from './types';
+
+// Suppliers Functions
 import { redirect } from 'next/navigation';
 
 export async function createSupplier(name: string) {
@@ -101,4 +104,27 @@ export async function deleteItem(asin: string) {
 
   revalidatePath('/dashboard/items');
   redirect('/dashboard/items');
+}
+
+export async function deletePurchase(id: string) {
+  try {
+    axiosInstanceServer.delete(`${process.env.NEXT_PUBLIC_BACKEND_URL}/Purchase/${id}`);
+  } catch (error) {
+    console.log(error);
+  }
+  revalidatePath('/dashboard/purchases');
+}
+
+export async function changeLoadedPurchase(id: string) {
+  try {
+    const call = axiosInstanceServer.put(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/Purchase/${id}`,
+      {
+        isLoaded: true,
+      },
+    );
+  } catch (error) {
+    console.log(error);
+  }
+  revalidatePath('/dashboard/purchases');
 }
