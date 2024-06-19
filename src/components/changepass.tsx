@@ -12,11 +12,11 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import passvalidation from '@/app/pass-validation';
 import { toast } from './ui/use-toast';
 import { changePassword } from '@/lib/actions';
 import { removeTokenCookie } from '@/lib/cookies';
 import { useRouter } from 'next/navigation';
+import passvalidation from '@/lib/pass-validation';
 
 const formSchema = z
   .object({
