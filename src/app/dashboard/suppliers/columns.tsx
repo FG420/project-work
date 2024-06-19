@@ -54,14 +54,13 @@ export const columns: ColumnDef<Supplier>[] = [
         },
       });
 
-      function onSubmit(values: z.infer<typeof formSchema>) {
+      async function onSubmit(values: z.infer<typeof formSchema>) {
         setOpen(false);
-        updateSupplier(supplier.supplierID, values.name);
+        await updateSupplier(supplier.supplierID, values.name);
       }
 
-      // Delete function working using the row supplier.id for verification!
-      const delSupplier = () => {
-        deleteSupplier(supplier.supplierID);
+      const delSupplier = async () => {
+        await deleteSupplier(supplier.supplierID);
       };
 
       return (
