@@ -2,9 +2,6 @@
 
 import { revalidatePath } from 'next/cache';
 import axiosInstanceServer from './axios-server';
-import { Purchase } from './types';
-
-// Suppliers Functions
 import { redirect } from 'next/navigation';
 
 export async function createSupplier(name: string) {
@@ -108,7 +105,9 @@ export async function deleteItem(asin: string) {
 
 export async function deletePurchase(id: string) {
   try {
-    axiosInstanceServer.delete(`${process.env.NEXT_PUBLIC_BACKEND_URL}/Purchase/${id}`);
+    await axiosInstanceServer.delete(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/Purchase/${id}`,
+    );
   } catch (error) {
     console.log(error);
   }
@@ -117,11 +116,23 @@ export async function deletePurchase(id: string) {
 
 export async function changeLoadedPurchase(id: string) {
   try {
-    const call = axiosInstanceServer.put(
+    const call = await axiosInstanceServer.put(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/Purchase/${id}`,
       {
         isLoaded: true,
       },
+    );
+  } catch (error) {
+    console.log(error);
+  }
+  revalidatePath('/dashboard/purchases');
+}
+
+export async function addPurchase(purchase: any) {
+  try {
+    await axiosInstanceServer.post(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/Purchase`,
+      purchase,
     );
   } catch (error) {
     console.log(error);

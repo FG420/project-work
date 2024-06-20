@@ -21,3 +21,11 @@ export async function getItems() {
   const items: Item[] = response.data;
   return items;
 }
+
+export async function getPurchases() {
+  const response = await axiosInstanceServer.get(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/Purchase`,
+  );
+
+  return response.data;
+}
