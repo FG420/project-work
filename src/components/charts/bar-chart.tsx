@@ -7,7 +7,7 @@ import { format, isWithinInterval, startOfWeek } from 'date-fns';
 import axiosInstanceClient from '@/lib/axios-client';
 import { DatePickerWithRange } from '../date-range-picker';
 import { DateRange } from 'react-day-picker';
-import { Item, Order, OrderItem } from '@/lib/types';
+import { Item, Marketplace, Order, OrderItem } from '@/lib/types';
 import {
   Select,
   SelectContent,
@@ -41,6 +41,8 @@ const BarChart = () => {
   const [dateRange, setDateRange] = useState<DateRange | undefined>(undefined);
   const [selectedItem, setSelectedItem] = useState<string>('');
   const [items, setItems] = useState<Item[]>([]);
+  const [marketplaces, setMarketplaces] = useState<Marketplace[]>([]);
+  const [selectedMarketplace, setSelectedMarketplace] = useState<string>('');
 
   const handleDateChange = (dates: DateRange) => {
     setDateRange(dates);
@@ -48,6 +50,10 @@ const BarChart = () => {
 
   const handleItemChange = (event: string) => {
     setSelectedItem(event);
+  };
+
+  const handleMarketplaceChange = (event: string) => {
+    setSelectedMarketplace(event);
   };
 
   const fetchData = useCallback(async () => {
@@ -77,8 +83,24 @@ const BarChart = () => {
         if (!isWithinDateRange) return false;
       }
 
+      // Check if order contains the selected item
+      if (selectedItem) {
+        const containsSelectedItem = order.orderItems.some(
+          (item) => item.asin === selectedItem,
+        );
+        if (!containsSelectedItem) return false;
+      }
+
+      // Check if order is from the selected marketplace
+      if (selectedMarketplace) {
+        const isFromSelectedMarketplace = order.marketplaceID === selectedMarketplace;
+        if (!isFromSelectedMarketplace) return false;
+      }
+
       return true;
     });
+
+    console.log(combinedOrders);
 
     const salesData = processSalesData(filteredOrders, selectedItem);
 
@@ -106,7 +128,7 @@ const BarChart = () => {
         },
       ],
     });
-  }, [dateRange, selectedItem]);
+  }, [dateRange, selectedItem, selectedMarketplace]);
 
   useEffect(() => {
     fetchData();
@@ -121,7 +143,17 @@ const BarChart = () => {
       setItems(data);
     }
 
+    async function fetchMarketplaces() {
+      const response = await axiosInstanceClient.get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/Marketplace`,
+      );
+
+      const data = await response.data;
+      setMarketplaces(data);
+    }
+
     fetchItems();
+    fetchMarketplaces();
   }, []);
 
   const options = {
@@ -134,6 +166,7 @@ const BarChart = () => {
 
   return (
     <div style={{ maxWidth: '500px' }}>
+      {/* Item */}
       <Select onValueChange={handleItemChange}>
         <SelectTrigger>
           <SelectValue placeholder="Select an item" />
@@ -142,6 +175,20 @@ const BarChart = () => {
           {items.map((item) => (
             <SelectItem key={item.asin} value={item.asin}>
               {item.title}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+
+      {/* Marketplace */}
+      <Select onValueChange={handleMarketplaceChange}>
+        <SelectTrigger>
+          <SelectValue placeholder="Select a marketplace" />
+        </SelectTrigger>
+        <SelectContent>
+          {marketplaces.map((item) => (
+            <SelectItem key={item.marketplaceID} value={item.marketplaceID}>
+              {item.marketplaceName}
             </SelectItem>
           ))}
         </SelectContent>
