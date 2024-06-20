@@ -1,5 +1,4 @@
 import nodemailer from 'nodemailer';
-import SMTPTransport from 'nodemailer/lib/smtp-transport';
 
 
 const transport = nodemailer.createTransport({
@@ -32,14 +31,16 @@ export const forgotPass = async (email: string, password: string, mode: string) 
 };
 
 
-export const signupConfirm = async (email: string, mode: string) => {
+export const signupConfirm = async (email: string, id: string, mode: string) => {
   try {
     
     const responseMail = {
       from: process.env.PROJECT_GMAIL_EMAIL,
       to: email,
-      subject: 'Registration Confirmed',
-      html: `<h1>User Successfully Registred</h1>`,
+      subject: 'Verify the Registration',
+      // html: `<h1>Click the link to be verify</h1>`,
+      html: `<p>Click <a href="${process.env.DOMAIN}/verify-email/${id}">here</a> to verify the registration of the account
+                or copy and paste the following link. <br> ${process.env.DOMAIN}/verify-email/${id}</p>`,
     };
 
     const mailRes = await transport.sendMail(responseMail);
