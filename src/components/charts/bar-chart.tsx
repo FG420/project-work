@@ -7,7 +7,7 @@ import { format, isWithinInterval, startOfWeek } from 'date-fns';
 import axiosInstanceClient from '@/lib/axios-client';
 import { DatePickerWithRange } from '../date-range-picker';
 import { DateRange } from 'react-day-picker';
-import { Item, Marketplace, Order, OrderItem } from '@/lib/types';
+import { Category, Item, Marketplace, Order, OrderItem } from '@/lib/types';
 import {
   Select,
   SelectContent,
@@ -43,6 +43,8 @@ const BarChart = () => {
   const [items, setItems] = useState<Item[]>([]);
   const [marketplaces, setMarketplaces] = useState<Marketplace[]>([]);
   const [selectedMarketplace, setSelectedMarketplace] = useState<string>('');
+  const [category, setCategory] = useState<Category[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
 
   const handleDateChange = (dates: DateRange) => {
     setDateRange(dates);
@@ -54,6 +56,10 @@ const BarChart = () => {
 
   const handleMarketplaceChange = (event: string) => {
     setSelectedMarketplace(event);
+  };
+
+  const handleCategoryChange = (event: string) => {
+    setSelectedCategory(event);
   };
 
   const fetchData = useCallback(async () => {
@@ -97,10 +103,16 @@ const BarChart = () => {
         if (!isFromSelectedMarketplace) return false;
       }
 
+      // Check if order contains an item from the selected category
+      if (selectedCategory) {
+        const containsCategoryItem = order.orderItems.some(
+          (item) => item.item.categoryID === selectedCategory,
+        );
+        if (!containsCategoryItem) return false;
+      }
+
       return true;
     });
-
-    console.log(combinedOrders);
 
     const salesData = processSalesData(filteredOrders, selectedItem);
 
@@ -128,7 +140,7 @@ const BarChart = () => {
         },
       ],
     });
-  }, [dateRange, selectedItem, selectedMarketplace]);
+  }, [dateRange, selectedItem, selectedMarketplace, selectedCategory]);
 
   useEffect(() => {
     fetchData();
@@ -152,6 +164,16 @@ const BarChart = () => {
       setMarketplaces(data);
     }
 
+    async function fetchCategories() {
+      const response = await axiosInstanceClient.get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/Category`,
+      );
+
+      const data = await response.data;
+      setCategory(data);
+    }
+
+    fetchCategories();
     fetchItems();
     fetchMarketplaces();
   }, []);
@@ -189,6 +211,20 @@ const BarChart = () => {
           {marketplaces.map((item) => (
             <SelectItem key={item.marketplaceID} value={item.marketplaceID}>
               {item.marketplaceName}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+
+      {/* Category */}
+      <Select onValueChange={handleCategoryChange}>
+        <SelectTrigger>
+          <SelectValue placeholder="Select a category" />
+        </SelectTrigger>
+        <SelectContent>
+          {category.map((item) => (
+            <SelectItem key={item.categoryID} value={item.categoryID}>
+              {item.description}
             </SelectItem>
           ))}
         </SelectContent>
