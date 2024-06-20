@@ -33,6 +33,12 @@ export const SidebarItems: SidebarItem[] = [
     submenu: false,
   },
   {
+    title: 'Export Data',
+    path: '/dashboard/export-data',
+    icon: <Icon icon="bi:file-earmark-arrow-down-fill" />,
+    submenu: false,
+  },
+  {
     title: 'Analysis',
     path: 'analysis',
     icon: <Icon icon="bi:bar-chart-fill" />,
