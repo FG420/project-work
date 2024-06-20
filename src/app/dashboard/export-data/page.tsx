@@ -28,7 +28,7 @@ type Items = {
 const items: Items[] = [
   { id: 'Category', label: 'Category' },
   { id: 'Item', label: 'Item' },
-  { id: 'LoginAttempts', label: 'Login Attempts' },
+  { id: 'LoginAttemps', label: 'Login Attempts' },
   { id: 'Marketplace', label: 'Marketplace' },
   { id: 'Order', label: 'Order' },
   { id: 'Purchase', label: 'Purchase' },
