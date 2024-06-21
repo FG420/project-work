@@ -122,10 +122,12 @@ const BarChart = () => {
     const totalRevenues = labels.map((week) => salesData[week].totalRevenue);
 
     setChartData({
+      // @ts-ignore
       labels,
       datasets: [
         {
           label: 'Total Quantity Sold',
+          // @ts-ignore
           data: totalQuantities,
           backgroundColor: 'rgba(75, 192, 192, 0.2)',
           borderColor: 'rgba(75, 192, 192, 1)',
@@ -133,6 +135,7 @@ const BarChart = () => {
         },
         {
           label: 'Total Revenue',
+          // @ts-ignore
           data: totalRevenues,
           backgroundColor: 'rgba(153, 102, 255, 0.2)',
           borderColor: 'rgba(153, 102, 255, 1)',

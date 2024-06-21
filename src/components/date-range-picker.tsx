@@ -1,10 +1,9 @@
 'use client';
 
-import * as React from 'react';
-import { addDays, format, set } from 'date-fns';
+import { HTMLAttributes, useState } from 'react';
+import { format } from 'date-fns';
 import { Calendar as CalendarIcon } from 'lucide-react';
 import { DateRange } from 'react-day-picker';
-
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
@@ -13,10 +12,10 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 export function DatePickerWithRange({
   className,
   onDateChange,
-}: React.HTMLAttributes<HTMLDivElement> & {
+}: HTMLAttributes<HTMLDivElement> & {
   onDateChange: (date: DateRange) => void;
 }) {
-  const [date, setDate] = React.useState<DateRange | undefined>({
+  const [date, setDate] = useState<DateRange | undefined>({
     from: new Date(2024, 0, 20),
     to: new Date(Date.now()),
   });
@@ -58,7 +57,7 @@ export function DatePickerWithRange({
             mode="range"
             defaultMonth={date?.from}
             selected={date}
-            onSelect={handleDateChange}
+            onSelect={(data) => handleDateChange(data!)}
             numberOfMonths={2}
           />
         </PopoverContent>

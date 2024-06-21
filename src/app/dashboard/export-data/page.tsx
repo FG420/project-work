@@ -25,6 +25,10 @@ type Items = {
   label: string;
 };
 
+type FormValues = {
+  items: string[];
+};
+
 const items: Items[] = [
   { id: 'Category', label: 'Category' },
   { id: 'Item', label: 'Item' },
@@ -43,7 +47,7 @@ const FormSchema = z.object({
 export default function ExportDataPage() {
   const [allSelected, setAllSelected] = useState<boolean>(false);
 
-  const form = useForm({
+  const form = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       items: [],
