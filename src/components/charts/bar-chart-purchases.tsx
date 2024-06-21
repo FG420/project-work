@@ -31,19 +31,15 @@ const BarChartPurchases = () => {
   useEffect(() => {
     async function fetchData() {
       const purchases = await fetchPurchase();
-      const purchaseItems = await fetchPurchaseItems();
 
-      // Combine order items into orders
-      const combinedPurchases = purchases.map((purchase) => {
-        return {
-          ...purchase,
-          purchaseItems: purchaseItems.filter(
-            (item) => item.amazonOrderID === purchase.amazonOrderID,
-          ),
-        };
-      });
+      const processedPurchases = purchases.map((purchase) => ({
+        ...purchase,
+        purchaseItems: typeof purchase.purchasedItems === 'string'
+          ? JSON.parse(purchase.purchasedItems)
+          : purchase.purchasedItems,
+      }));
 
-      const salesData = processSalesData(combinedPurchases);
+      const salesData = processSalesData(processedPurchases);
 
       const labels = Object.keys(salesData);
       const totalQuantities = labels.map((week) => salesData[week].totalQuantity);
@@ -76,10 +72,18 @@ const BarChartPurchases = () => {
   const options = {
     scales: {
       y: {
-        beginAtZero: true,
+        type: 'logarithmic',
+        ticks: {
+          callback: function(value) {
+            if (value === 100 || value === 1000 || value === 10000 || value === 100000 || value === 1000000) {
+              return value.toLocaleString()
+            }
+            return null
+          },
+        },
       },
     },
-  };
+  }
 
   return (
     <div style={{ maxWidth: '500px' }}>
@@ -88,26 +92,20 @@ const BarChartPurchases = () => {
   );
 };
 
-export default BarChartPurchases
+export default BarChartPurchases;
 
 async function fetchPurchase() {
   const response = await axiosInstanceClient.get(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/Purchase`,
-    
-  )
-  console.log(response.data)
-
-  const data = await response.data;
-  return data;
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/Purchase`
+  );
+  return response.data;
 }
 
 async function fetchPurchaseItems() {
   const response = await axiosInstanceClient.get(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/OrderItem`,
-  )
-  console.log(response.data)
-  const data = await response.data;
-  return data;
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/OrderItem`
+  );
+  return response.data;
 }
 
 function processSalesData(purchases) {
@@ -126,12 +124,12 @@ function processSalesData(purchases) {
     }
 
     purchase.purchaseItems.forEach((item) => {
-      salesData[weekKey].totalQuantity += item.quantityOrdered;
-      salesData[weekKey].totalRevenue += item.itemPrice * item.quantityOrdered;
+      salesData[weekKey].totalQuantity += item.quantity;
+      salesData[weekKey].totalRevenue += item.price * item.quantity;
     });
   });
 
-  console.log('fine dati',salesData)
+  console.log('Processed Sales Data:', salesData);
 
   return salesData;
 }
