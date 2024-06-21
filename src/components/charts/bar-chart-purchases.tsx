@@ -7,19 +7,19 @@ import { format, startOfWeek } from 'date-fns';
 import axiosInstanceClient from '@/lib/axios-client';
 Chart.register(...registerables);
 
-const BarChart = () => {
+const BarChartPurchases = () => {
   const [chartData, setChartData] = useState({
     labels: [],
     datasets: [
       {
-        label: 'Total Quantity Sold',
+        label: 'Total Quantity Purchases',
         data: [],
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
         borderColor: 'rgba(75, 192, 192, 1)',
         borderWidth: 1,
       },
       {
-        label: 'Total Revenue',
+        label: 'Total Purchases',
         data: [],
         backgroundColor: 'rgba(153, 102, 255, 0.2)',
         borderColor: 'rgba(153, 102, 255, 1)',
@@ -30,20 +30,20 @@ const BarChart = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const orders = await fetchOrders();
-      const orderItems = await fetchOrderItems();
+      const purchases = await fetchPurchase();
+      const purchaseItems = await fetchPurchaseItems();
 
       // Combine order items into orders
-      const combinedOrders = orders.map((order) => {
+      const combinedPurchases = purchases.map((purchase) => {
         return {
-          ...order,
-          orderItems: orderItems.filter(
-            (item) => item.amazonOrderID === order.amazonOrderID,
+          ...purchase,
+          purchaseItems: purchaseItems.filter(
+            (item) => item.amazonOrderID === purchase.amazonOrderID,
           ),
         };
       });
 
-      const salesData = processSalesData(combinedOrders);
+      const salesData = processSalesData(combinedPurchases);
 
       const labels = Object.keys(salesData);
       const totalQuantities = labels.map((week) => salesData[week].totalQuantity);
@@ -53,14 +53,14 @@ const BarChart = () => {
         labels,
         datasets: [
           {
-            label: 'Total Quantity Sold',
+            label: 'Total Quantity Purchases',
             data: totalQuantities,
             backgroundColor: 'rgba(75, 192, 192, 0.2)',
             borderColor: 'rgba(75, 192, 192, 1)',
             borderWidth: 1,
           },
           {
-            label: 'Total Revenue',
+            label: 'Total Purchases',
             data: totalRevenues,
             backgroundColor: 'rgba(153, 102, 255, 0.2)',
             borderColor: 'rgba(153, 102, 255, 1)',
@@ -88,11 +88,11 @@ const BarChart = () => {
   );
 };
 
-export default BarChart
+export default BarChartPurchases
 
-async function fetchOrders() {
+async function fetchPurchase() {
   const response = await axiosInstanceClient.get(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/Order`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/Purchase`,
     
   )
   console.log(response.data)
@@ -101,7 +101,7 @@ async function fetchOrders() {
   return data;
 }
 
-async function fetchOrderItems() {
+async function fetchPurchaseItems() {
   const response = await axiosInstanceClient.get(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/OrderItem`,
   )
@@ -110,11 +110,11 @@ async function fetchOrderItems() {
   return data;
 }
 
-function processSalesData(orders) {
+function processSalesData(purchases) {
   const salesData = {};
 
-  orders.forEach((order) => {
-    const purchaseDate = new Date(order.purchaseDate);
+  purchases.forEach((purchase) => {
+    const purchaseDate = new Date(purchase.purchaseDate);
     const weekStart = startOfWeek(purchaseDate);
     const weekKey = format(weekStart, 'yyyy-MM-dd');
 
@@ -125,11 +125,13 @@ function processSalesData(orders) {
       };
     }
 
-    order.orderItems.forEach((item) => {
+    purchase.purchaseItems.forEach((item) => {
       salesData[weekKey].totalQuantity += item.quantityOrdered;
       salesData[weekKey].totalRevenue += item.itemPrice * item.quantityOrdered;
     });
   });
+
+  console.log('fine dati',salesData)
 
   return salesData;
 }
