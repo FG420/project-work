@@ -25,10 +25,14 @@ type Items = {
   label: string;
 };
 
+type FormValues = {
+  items: string[];
+};
+
 const items: Items[] = [
   { id: 'Category', label: 'Category' },
   { id: 'Item', label: 'Item' },
-  { id: 'LoginAttempts', label: 'Login Attempts' },
+  { id: 'LoginAttemps', label: 'Login Attempts' },
   { id: 'Marketplace', label: 'Marketplace' },
   { id: 'Order', label: 'Order' },
   { id: 'Purchase', label: 'Purchase' },
@@ -43,7 +47,7 @@ const FormSchema = z.object({
 export default function ExportDataPage() {
   const [allSelected, setAllSelected] = useState<boolean>(false);
 
-  const form = useForm({
+  const form = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       items: [],
