@@ -41,19 +41,23 @@ export default function LoginComponent() {
       password: '',
     },
   });
-  const timer = setTimeout(() => {
-    toast({
-      title: 'Form Resetting!',
-      description: '30 Seconds passed, from resetting!',
-      action: <ToastAction altText="Form resetting toast">Close</ToastAction>,
-    });
-    form.reset();
-  }, 30000);
+
+  
 
   useEffect(() => {
-    timer
+    const message = () => {
+      toast({
+        title: 'Form Resetting!',
+        description: '30 Seconds passed, from resetting!',
+        action: <ToastAction altText="Form resetting toast">Close</ToastAction>,
+      });
+      form.reset();
+    };
+
+    const timer = setInterval(message, 30000);
+
     return () => clearTimeout(timer);
-  }, [form]);
+  }, []);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
@@ -65,7 +69,6 @@ export default function LoginComponent() {
       if (res.status === 200) {
         setTokenCookie(res.data);
         router.push('/dashboard');
-        return () => clearTimeout(timer);
       }
     } catch (error: any) {
       toast({

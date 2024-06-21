@@ -12,7 +12,9 @@ export default async function PurchasePage() {
     purchaseDate: new Date(purchase.purchaseDate).toISOString().split('T')[0],
     recipeNumber: purchase.recipeNumber,
     isLoaded: purchase.isLoaded,
+    purchasedItems : purchase.purchasedItems.length
   }));
+
 
   return (
     <main>
