@@ -24,8 +24,7 @@ export default function SignInPage() {
             </CardContent>
             <p className="flex items-center justify-center pt-0 pb-10">
               <Link
-                className=" transition-all text-red-500 hover:text-red-300
-                                    hover:transition-all"
+                className=" transition-all text-red-500 hover:text-red-300 hover:transition-all"
                 href={'/forgotpass'}
               >
                 Forgot Password
@@ -36,8 +35,7 @@ export default function SignInPage() {
         <p className="text-center p-6">
           Not Register Yet? <br />
           <Link
-            className="p-2 flex items-center justify-center transition-all text-red-500 hover:text-red-300
-                            hover:transition-all"
+            className="p-2 flex items-center justify-center transition-all text-red-500 hover:text-red-300 hover:transition-all"
             href={'/signup'}
           >
             Sign Up

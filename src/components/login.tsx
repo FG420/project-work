@@ -42,8 +42,6 @@ export default function LoginComponent() {
     },
   });
 
-  
-
   useEffect(() => {
     const message = () => {
       toast({
@@ -68,7 +66,7 @@ export default function LoginComponent() {
 
       if (res.status === 200) {
         setTokenCookie(res.data);
-        router.push('/dashboard');
+        router.push('/login');
       }
     } catch (error: any) {
       toast({

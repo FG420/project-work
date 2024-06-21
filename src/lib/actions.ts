@@ -140,13 +140,13 @@ export async function addPurchase(purchase: any) {
   revalidatePath('/dashboard/purchases');
 }
 
-export async function getPurchasedItems(id:string) {
+export async function getPurchasedItems(id: string) {
   try {
     const items = await axiosInstanceServer.get(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/Purchase/${id}`)
-    return items.data
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/Purchase/${id}`,
+    );
+    return items.data;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-  
 }
