@@ -29,7 +29,7 @@ export type Purchase = {
   // recipeDate: Date;
   recipeNumber: string;
   isLoaded: boolean;
-  purchasedItems : PurchasedItem
+  purchasedItems: PurchasedItem[];
 };
 
 export type PurchasedItem = {
