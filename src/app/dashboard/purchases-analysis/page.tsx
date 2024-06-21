@@ -2,8 +2,7 @@
 
 
 
-import PurchaseChartComponent from "@/components/charts/purchase-charts";
-import BarChart from "@/components/charts/vertical-bar";
+import BarChartPurchases from "@/components/charts/bar-chart-purchases";
 
 
 
@@ -13,8 +12,7 @@ export default function PurchaseAnalysis() {
   return (
     <main>
       ciao mona
-      {/* <PurchaseChartComponent/> */}
-      <BarChart/>
+      <BarChartPurchases />
     </main>
   )
 }
