@@ -45,7 +45,7 @@ export function DataOrderTable<TData, TValue>({ columns, data }: DataTableProps<
 
   return (
     <div>
-      <div className="p-2 flex items-center py-4">
+      <div className="p-2 flex items-center py-4 justify-between">
         <div className="p-1">
         <Input
           placeholder="Filter ID"
@@ -73,7 +73,7 @@ export function DataOrderTable<TData, TValue>({ columns, data }: DataTableProps<
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <TableHead key={header.id}>
+                  <TableHead key={header.id} className=" text-center">
                     {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                   </TableHead>
                 ))}
@@ -85,7 +85,7 @@ export function DataOrderTable<TData, TValue>({ columns, data }: DataTableProps<
               table.getRowModel().rows.map((row) => (
                 <TableRow key={row.id}>
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <TableCell key={cell.id} className="text-center">
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
                   ))}
@@ -98,14 +98,6 @@ export function DataOrderTable<TData, TValue>({ columns, data }: DataTableProps<
             )}
           </TableBody>
         </Table>
-      </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <Button variant="outline" size="sm" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
-          Previous
-        </Button>
-        <Button variant="outline" size="sm" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
-          Next
-        </Button>
       </div>
     </div>
   );

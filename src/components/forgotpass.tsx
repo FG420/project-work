@@ -78,7 +78,7 @@ function ForgotPass() {
             name="email"
             render={({ field }) => (
               <FormItem className="p-8">
-                <p>RECOVER THE PASSWORD</p>
+                <p>Receive a new Password</p>
                 <FormControl>
                   <Input placeholder="Email" {...field} />
                 </FormControl>
@@ -86,7 +86,7 @@ function ForgotPass() {
               </FormItem>
             )}
           />
-          <Button type="submit">RESET PASSWORD</Button>
+          <Button type="submit">Reset Password</Button>
         </form>
       </Form>
     </>
