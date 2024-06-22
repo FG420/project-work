@@ -7,16 +7,9 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import UpdateStock from '@/components/update-stock';
-import axiosInstanceServer from '@/lib/axios-server';
+import { getItem } from '@/lib/data-fetching';
 import { getImages } from '@/lib/get-images';
 import { Item } from '@/lib/types';
-
-async function getItem(asin: string) {
-  const res = await axiosInstanceServer.get(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/Item/${asin}`,
-  );
-  return res.data;
-}
 
 export default async function ItemPage({ params }: any) {
   const { asin } = params;
