@@ -271,12 +271,15 @@ const BarChart = () => {
   );
 };
 
-export default BarChart;
+export default BarChart
 
 async function fetchOrders() {
   const response = await axiosInstanceClient.get(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/Order`,
-  );
+    
+  )
+  console.log(response.data)
+
   const data = await response.data;
   return data;
 }
@@ -284,7 +287,8 @@ async function fetchOrders() {
 async function fetchOrderItems() {
   const response = await axiosInstanceClient.get(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/OrderItem`,
-  );
+  )
+  console.log(response.data)
   const data = await response.data;
   return data;
 }

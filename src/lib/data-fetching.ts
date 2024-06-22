@@ -4,28 +4,47 @@ import { unstable_noStore as noStore } from 'next/cache';
 
 export async function getSuppliers() {
   noStore();
-  const response = await axiosInstanceServer.get(
+  const res = await axiosInstanceServer.get(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/Supplier`,
   );
 
-  const suppliers: Supplier[] = response.data;
+  const suppliers: Supplier[] = res.data;
   return suppliers;
 }
 
 export async function getItems() {
   noStore();
-  const response = await axiosInstanceServer.get(
+  const res = await axiosInstanceServer.get(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/Item`,
   );
 
-  const items: Item[] = response.data;
+  const items: Item[] = res.data;
   return items;
 }
 
 export async function getPurchases() {
-  const response = await axiosInstanceServer.get(
+  noStore();
+  const res = await axiosInstanceServer.get(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/Purchase`,
   );
 
-  return response.data;
+  return res.data;
+}
+
+export async function getOrders() {
+  noStore();
+  const res = await axiosInstanceServer.get(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/Order`,
+  );
+
+  return res.data;
+}
+
+export async function getItem(asin: string) {
+  noStore();
+  const res = await axiosInstanceServer.get(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/Item/${asin}`,
+  );
+
+  return res.data;
 }

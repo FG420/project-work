@@ -1,9 +1,10 @@
 import { DialogComponent } from '@/components/dialog-trigger';
 import { getSuppliers } from '@/lib/data-fetching';
 import SuppliersFilters from './suppliers-filter';
+import { Supplier } from '@/lib/types';
 
 export default async function SuppliersPage() {
-  const data = await getSuppliers();
+  const data: Supplier[] = await getSuppliers();
 
   return (
     <main>
