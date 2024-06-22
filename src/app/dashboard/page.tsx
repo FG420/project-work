@@ -7,14 +7,14 @@ import HomeComeponent from "@/components/top-suppliers";
 
 
 
-export default function HomePage() {
+export default function HomePage () {
 
 
-  return (
-    <main className="py-10 px-4 flex items-center">
-      <SalesComponent/>
+    return (
+        <main className="py-10 px-4 items-center">
+            <SalesComponent />
 
-      <TopItemsComponent/>
-    </main>
-  )
+            <TopItemsComponent />
+        </main>
+    )
 }
