@@ -15,6 +15,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../ui/select';
+import { Button } from '../ui/button';
+
 Chart.register(...registerables);
 
 const BarChart = () => {
@@ -45,6 +47,20 @@ const BarChart = () => {
   const [selectedMarketplace, setSelectedMarketplace] = useState<string>('');
   const [category, setCategory] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>('');
+
+  // New states to force re-render
+  const [selectKey, setSelectKey] = useState(0);
+  const [datePickerKey, setDatePickerKey] = useState(0);
+
+  const resetFilters = () => {
+    setSelectedItem('');
+    setSelectedMarketplace('');
+    setSelectedCategory('');
+    setDateRange(undefined);
+    // Update keys to force re-render
+    setSelectKey((prevKey) => prevKey + 1);
+    setDatePickerKey((prevKey) => prevKey + 1);
+  };
 
   const handleDateChange = (dates: DateRange) => {
     setDateRange(dates);
@@ -190,50 +206,67 @@ const BarChart = () => {
   };
 
   return (
-    <div style={{ maxWidth: '500px' }}>
-      {/* Item */}
-      <Select onValueChange={handleItemChange}>
-        <SelectTrigger>
-          <SelectValue placeholder="Select an item" />
-        </SelectTrigger>
-        <SelectContent>
-          {items.map((item) => (
-            <SelectItem key={item.asin} value={item.asin}>
-              {item.title}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+    <div className="flex justify-center items-center">
+      <div style={{ maxWidth: '1200px' }}>
+        <div className="flex justify-around items-center">
+          <div className="p-2">
+            <Select key={selectKey} onValueChange={handleItemChange}>
+              <SelectTrigger>
+                <SelectValue placeholder="Item" />
+              </SelectTrigger>
+              <SelectContent>
+                {items.map((item) => (
+                  <SelectItem key={item.asin} value={item.asin}>
+                    {item.title}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
 
-      {/* Marketplace */}
-      <Select onValueChange={handleMarketplaceChange}>
-        <SelectTrigger>
-          <SelectValue placeholder="Select a marketplace" />
-        </SelectTrigger>
-        <SelectContent>
-          {marketplaces.map((item) => (
-            <SelectItem key={item.marketplaceID} value={item.marketplaceID}>
-              {item.marketplaceName}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+          <div className="p-2 w-full">
+            <Select key={selectKey} onValueChange={handleMarketplaceChange}>
+              <SelectTrigger>
+                <SelectValue placeholder="Marketplace" />
+              </SelectTrigger>
+              <SelectContent>
+                {marketplaces.map((item) => (
+                  <SelectItem key={item.marketplaceID} value={item.marketplaceID}>
+                    {item.marketplaceName}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
 
-      {/* Category */}
-      <Select onValueChange={handleCategoryChange}>
-        <SelectTrigger>
-          <SelectValue placeholder="Select a category" />
-        </SelectTrigger>
-        <SelectContent>
-          {category.map((item) => (
-            <SelectItem key={item.categoryID} value={item.categoryID}>
-              {item.description}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-      <DatePickerWithRange onDateChange={handleDateChange} />
-      <Bar data={chartData} options={options} />
+          <div className="p-2 w-full">
+            <Select key={selectKey} onValueChange={handleCategoryChange}>
+              <SelectTrigger>
+                <SelectValue placeholder="Category" />
+              </SelectTrigger>
+              <SelectContent>
+                {category.map((item) => (
+                  <SelectItem key={item.categoryID} value={item.categoryID}>
+                    {item.description}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="p-2 w-full">
+            <DatePickerWithRange key={datePickerKey} onDateChange={handleDateChange} />
+          </div>
+
+          <div className="p-2">
+            <Button onClick={resetFilters}>Reset Filters</Button>
+          </div>
+        </div>
+
+        <div className="flex justify-center items-center p-4">
+          <Bar data={chartData} options={options} />
+        </div>
+      </div>
     </div>
   );
 };

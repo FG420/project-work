@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-
+import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 
+import { usePathname } from 'next/navigation';
 import { SidebarItems } from '@/lib/constants';
 import { SidebarItem } from '@/lib/types';
 import { Icon } from '@iconify/react';
@@ -18,8 +18,8 @@ export const SideNav = () => {
           href="/dashboard"
           className="flex flex-row space-x-3 items-center justify-center md:justify-start md:px-6 border-b border-zinc-200 h-12 w-full"
         >
-          <span className="h-7 w-7 bg-zinc-300 rounded-lg" />
-          <span className="font-bold text-xl hidden md:flex">Warehouse</span>
+          <Image src={'/graph.png'} width={30} height={20} alt="graph-png" />
+          <span className="font-bold text-xl hidden md:flex">CargoConnect</span>
         </Link>
 
         <div className="flex flex-col space-y-2  md:px-6 ">

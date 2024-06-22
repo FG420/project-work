@@ -19,10 +19,6 @@ export const columns: ColumnDef<Order>[] = [
     },
   },
   {
-    accessorKey: "orderStatus",
-    header: "Order Status",
-  },
-  {
     accessorKey: "numberOfItemsShipped",
     header: "N. Items Shipped",
   },

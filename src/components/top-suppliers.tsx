@@ -54,17 +54,10 @@ export default function HomeComeponent() {
     <main>
       <Card className="w-[350px]">
         <CardHeader>
-          <CardTitle>Top 3 Suppliers</CardTitle>
-          <CardDescription>The top 3 suppliers from the purchases</CardDescription>
+          <CardTitle>Analysis Card</CardTitle>
+          <CardDescription></CardDescription>
         </CardHeader>
-        {/* <CardContent>
-      {suppliers.map((supp) => (
-        <div key={supp.supplierID}>
-          <Label>{supp.description}</Label>
-        </div>
-      ))}
-      
-      </CardContent> */}
+       
         <CardFooter className="flex justify-between"></CardFooter>
       </Card>
     </main>

@@ -101,7 +101,7 @@ export default function ExportDataPage() {
           render={() => (
             <FormItem>
               <div className="mb-4">
-                <FormLabel className="text-base text-2xl">
+                <FormLabel className="text-2xl">
                   Select Data to Export
                 </FormLabel>
                 <FormDescription>Select the items you want to download.</FormDescription>

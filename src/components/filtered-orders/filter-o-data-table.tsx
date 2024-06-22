@@ -22,7 +22,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
 }
 
-export function FilteredDataTable<TData, TValue>({
+export function FilteredODataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
@@ -34,7 +34,7 @@ export function FilteredDataTable<TData, TValue>({
 
   return (
     <main>
-      <div className="rounded-md border text-center max-h-60 overflow-y-auto">
+      <div className="rounded-md border text-center max-h-80 overflow-y-auto">
         <Table>
           <TableHeader className='sticky top-0'>
             {table.getHeaderGroups().map((headerGroup) => (
