@@ -12,6 +12,15 @@ export function CardSkeleton() {
   );
 }
 
+export function DashboardSkeleton() {
+  return (
+    <div className="flex flex-col gap-10 p-4">
+      <Skeleton className="h-[450px] w-full" />
+      <Skeleton className="h-[450px] w-full" />
+    </div>
+  );
+}
+
 export function ItemsSkeleton() {
   return (
     <div style={{ display: 'flex', gap: '4rem', flexWrap: 'wrap' }}>
@@ -105,6 +114,22 @@ export function OrdersPageSkeleton() {
         <Skeleton className="h-[46px] w-[195px] rounded-xl" />
       </div>
       <RowsSkeleton />
+    </div>
+  );
+}
+
+export function AnalyticsSkeleton() {
+  return (
+    <div className="flex flex-col gap-6 px-2 items-center mt-8">
+      <Skeleton className="h-[50px] w-[180px] rounded-xl" />
+      <div className="flex flex-row gap-8 justify-evenly">
+        <Skeleton className="h-[46px] w-[195px] rounded-xl" />
+        <Skeleton className="h-[46px] w-[195px] rounded-xl" />
+        <Skeleton className="h-[46px] w-[195px] rounded-xl" />
+        <Skeleton className="h-[46px] w-[195px] rounded-xl" />
+      </div>
+      <Skeleton className="h-[46px] w-[135px] rounded-xl" />
+      <Skeleton className="h-[450px] w-[900px]" />
     </div>
   );
 }
