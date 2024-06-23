@@ -196,7 +196,7 @@ const BarChartPurchases = () => {
     const options = {
         scales: {
             y: {
-                type: 'logarithmic',
+                type: 'logarithmic' as const,
                 ticks: {
                     // @ts-ignore
                     callback: function ( value ) {
