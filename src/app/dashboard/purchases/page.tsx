@@ -15,11 +15,10 @@ export default async function PurchasePage () {
         purchasedItems: purchase.purchasedItems.length
     } ) );
 
-
     return (
-        <main className='container mx-auto'>
-            <div className="flex justify-end items-center pt-4 pr-4 pb-2">
-                <div className=" ">
+        <main className="">
+            <div className="flex justify-end items-center p-2">
+                <div className="">
                     <DialogComponent buttonName={ 'New Purchase' } title={ 'Create a New Purchase' } />
                 </div>
             </div>

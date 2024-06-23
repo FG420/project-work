@@ -28,7 +28,7 @@ export default function TopItemsComponent () {
 
             const itemsFilterByStock = getItems.data
                 .filter( ( item: any ) => item.stock < 150 )
-                .sort( ( a: any, b: any ) => b.stock - a.stock );
+                .sort( ( a: any, b: any ) => a.stock - b.stock );
 
             setItems( itemsFilterByStock );
         } catch ( error ) {

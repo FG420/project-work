@@ -7,7 +7,7 @@ export default async function OrdersPage () {
 
     return (
         <>
-            <div className="container mx-auto py-10 ">
+            <div className=" ">
                 <DataOrderTable columns={ columns } data={ data } />
             </div>
         </>

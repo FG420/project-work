@@ -32,7 +32,7 @@ export function middleware ( req: NextRequest ) {
     const token = req.cookies.get( 'token' )?.value || ''
 
     if ( isPublicPath && token ) {
-        return NextResponse.redirect( new URL( '/', req.nextUrl ) );
+        return NextResponse.redirect( new URL( '/dashboard', req.nextUrl ) );
     }
 
     if ( !isPublicPath && !token ) {

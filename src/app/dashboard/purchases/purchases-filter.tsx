@@ -59,42 +59,42 @@ export default function PurchasesFilter ( { data }: PurchasesFilterProps ) {
 
     return (
         <>
-            <div className="p-2 flex items-center justify-between">
-                <div className="p-2">
+            <div className="flex flex-wrap items-center justify-between">
+                <div className="p-2 w-full sm:w-1/2 md:w-1/3 lg:w-auto">
                     <Input
                         type="text"
                         placeholder="Filter for ID"
-                        className=" w-32 p-2"
+                        className="w-full p-2"
                         onChange={ ( e ) => filterById( e.target.value ) }
                     ></Input>
                 </div>
-                <div className="p-2">
+                <div className="p-2 w-full sm:w-1/2 md:w-1/3 lg:w-auto">
                     <Input
                         type="text"
                         placeholder="Filter for Supplier"
-                        className="w-44 p-2"
+                        className="w-full p-2"
                         onChange={ ( e ) => filterBySupplierId( e.target.value ) }
                     ></Input>
                 </div>
-                <div className="p-2">
+                <div className="p-2 w-full sm:w-1/2 md:w-1/3 lg:w-auto">
                     <Input
                         type="date"
                         placeholder="Filter for Date"
-                        className="w-34 p-2"
+                        className="w-full p-2"
                         onChange={ ( e ) => filterByDate( e.target.value ) }
                     ></Input>
                 </div>
-                <div className="p-2">
+                <div className="p-2 w-full sm:w-1/2 md:w-1/3 lg:w-auto">
                     <Input
                         type="text"
                         placeholder="Filter for Recipe"
-                        className="w-32 lg:w-full p-2"
+                        className="w-full p-2"
                         onChange={ ( e ) => filterByRecipe( e.target.value ) }
                     ></Input>
                 </div>
-                <div className="p-2">
+                <div className="p-2 w-full sm:w-1/2 md:w-1/3 lg:w-auto">
                     <Select onValueChange={ ( e ) => filterByLoaded( e ) }>
-                        <SelectTrigger className="w-[186px]">
+                        <SelectTrigger className="w-full">
                             <SelectValue placeholder="Display Purchases" />
                         </SelectTrigger>
                         <SelectContent>
@@ -105,7 +105,7 @@ export default function PurchasesFilter ( { data }: PurchasesFilterProps ) {
                     </Select>
                 </div>
             </div>
-            <div className="p-4 w-auto">
+            <div className="p-4 w-full overflow-auto">
                 { filteredData.length !== 0 ? (
                     <DataTable columns={ columns } data={ filteredData } />
                 ) : (
