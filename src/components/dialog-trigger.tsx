@@ -279,6 +279,7 @@ export function DialogComponent ( { buttonName, title }: Prop ) {
                                                             onChange={ props.field.onChange }
                                                             value={ props.field.value }
                                                             min={ 0 }
+                                                            step={ 0.01 }
                                                         />
                                                         <FormLabel className="p-3">€</FormLabel>
                                                     </div>
