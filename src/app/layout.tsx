@@ -45,6 +45,8 @@ export default function RootLayout({
 
       setRemaining(newRemaining);
 
+      console.log('Remaining time:', newRemaining);
+
       if (newRemaining === 0) {
         removeTokenCookie();
         router.push('/signin');
