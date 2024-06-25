@@ -35,7 +35,7 @@ export default function RootLayout({
     onIdle,
     onActive,
     onAction,
-    timeout: 900000_000, // 15 minutes in milliseconds
+    timeout: 900_000,
     throttle: 500,
   });
 
