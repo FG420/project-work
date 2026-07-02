@@ -38,7 +38,7 @@
     "file-saver": "^2.0.5",
     "framer-motion": "^11.2.10",
     "jose": "^5.4.0",
-    "json-2-csv": "^5.5.1",
+    "json-2-csv": "^5.5.11",
     "jszip": "^3.10.1",
     "lucide-react": "^0.383.0",
     "mojoauth-web-sdk": "^1.1.17",
